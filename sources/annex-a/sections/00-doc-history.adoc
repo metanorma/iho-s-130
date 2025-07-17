@@ -1,0 +1,67 @@
+[.preface]
+== metanorma-extension
+
+=== user-css
+
+[source]
+----
+.blue { color: blue}
+.red { color: red}
+----
+
+=== document history
+
+[source,yaml]
+----
+- date:
+  - type: published
+    value:  2023-04
+  edition: 1.0.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Release.
+- date:
+  - type: updated
+    value:  2023-11
+  edition: 1.1.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Update.
+- date:
+  - type: published
+    value:  2024-04
+  edition: 1.1.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Release.
+- date:
+  - type: updated
+    value:  2024-10
+  edition: 1.1.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Update.
+- date:
+  - type: created
+    value:  2025-03
+  edition: 2.0.0
+  amend:
+    - description: Draft.
+- date:
+  - type: published
+    value:  2025-03
+  edition: 2.0.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: HSSC Final.
+----

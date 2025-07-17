@@ -1,0 +1,198 @@
+[[cls-A-6]]
+== Association Names
+
+Roles left blank in the tables are not encoded in the dataset, generally
+because they correspond to information-to-feature bindings, which are not
+permitted by the S-100 Feature Catalogue model.
+
+The Role Type describes the type of binding (aggregation, association, or
+composition) This corresponds to the _roleType_ attribute in a feature or
+information binding in the feature catalogue (see
+<<S100,clause="5-4.2.5.2">> (Feature Bindings) and
+<<S100,clause="5-4.2.5.3">> (Information Bindings)). If the binding in
+that direction is not included in the feature catalogue (for the reason
+given in the previous paragraph), this cell too is left blank.
+
+=== AdditionalInformation
+
+[cols="a,a,a,a"]
+|===
+4+.<| [underline]#IHO Definition:# A feature association for the binding between at least one instance of a geo feature and an instance of an information type.
+
+[underline]#Remarks:#
+
+* An *AdditionalInformation* association links an instance of a geo feature to an instance of the information type *AdditionalSpatialInformation* using the role "theInformation".
+* The reverse link (*AdditionalSpatialInformation* to geo feature instance) is not encoded and therefore does not have a role or role type in the table.
+
+| *Role Type*
+| *Role*
+| *Associated With*
+| *Multiplicity*
+
+| Association
+| theInformation
+| *AdditionalSpatialInformation*
+| 0, *
+
+|
+|
+| (any subtype of FeatureType)
+| 1, *
+|===
+
+=== GlobalSeaAreaAggregation
+
+[cols="a,a,a,a"]
+|===
+4+.<| [underline]#IHO Definition:# A feature association for the binding between related areas comprising a Global Sea Area.
+
+[underline]#Remarks:#
+
+* No remarks.
+
+| *Role Type*
+| *Role*
+| *Associated With*
+| *Multiplicity*
+
+| Aggregation
+| theCollection
+| *GlobalSeaArea*
+| 0, *
+
+| Association
+| theComponent
+| *GlobalSeaArea*
+| 0, *
+|===
+
+=== FeatureTypeSource
+
+[cols="a,a,a,a"]
+|===
+4+.<| [underline]#IHO Definition:# An association between a feature and information about the source from which the feature was defined.
+
+[underline]#Remarks:#
+
+* A *FeatureTypeSource* association links an instance of a geo feature to an instance of the information type *SourceInformation* using the role "theFeatureDataSource".
+* The reverse link (*SourceInformation* to geo feature instance) is not encoded and therefore does not have a role or role type in the table.
+
+| *Role Type*
+| *Role*
+| *Associated With*
+| *Multiplicity*
+
+| Association
+| theFeatureDataSource
+| *SourceInformation*
+| 0, *
+
+|
+|
+| (any subtype of FeatureType)
+| 0, *
+|===
+
+=== AdditionalSpatialInformationSource
+
+[cols="a,a,a,a"]
+|===
+4+.<| [underline]#IHO Definition:# Spatial information as a supplement to source information.
+
+[underline]#Remarks:#
+
+* No remarks.
+
+| *Role Type*
+| *Role*
+| *Associated With*
+| *Multiplicity*
+
+| Association
+| theSpatialInformationSource
+| *SourceInformation*
+| 0, *
+
+| Association
+| theAdditionalSpatialInformation
+| *AdditionalSpatialInformation*
+| 0, *
+|===
+
+=== ZoneLimit
+
+[cols="a,a,a,a"]
+|===
+4+.<| [underline]#IHO Definition:# The relationship between a sea area and a construction line used in defining its boundaries.
+
+[underline]#Remarks:#
+
+* No remarks.
+
+| *Role Type*
+| *Role*
+| *Associated With*
+| *Multiplicity*
+
+| Aggregation
+| lineDerivedZone
+| *GlobalSeaArea*
+| 1, *
+
+| Association
+| zoneConstructionLimit
+| *ConstructionLine*
+| 0, *
+|===
+
+=== ZoneLocation
+
+[cols="a,a,a,a"]
+|===
+4+.<| [underline]#IHO Definition:# The relationship between a maritime limitation area or boundary area and a point used for computing the area.
+
+[underline]#Remarks:#
+
+* No remarks.
+
+| *Role Type*
+| *Role*
+| *Associated With*
+| *Multiplicity*
+
+| Aggregation
+| pointDerivedZone
+| *GlobalSeaArea*
+| 1, *
+
+| Association
+| zoneContributingLocation
+| *ContributingPoint*
+| 0, *
+|===
+
+=== LimitLocation
+
+[cols="a,a,a,a"]
+|===
+4+.<| [underline]#IHO Definition:# The relationship between a line used for construction of the location or extent of a area, maritime limit or boundary, and a point location used for computation of the line.
+
+[underline]#Remarks:#
+
+* No remarks.
+
+| *Role Type*
+| *Role*
+| *Associated With*
+| *Multiplicity*
+
+| Aggregation
+| contributedLimit
+| *ConstructionLine*
+| 1, *
+
+| Association
+| lineContributingLocation
+| *ContributingPoint*
+| 0, *
+|===

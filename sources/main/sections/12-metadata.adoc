@@ -1,0 +1,995 @@
+[[cls-12]]
+== Metadata
+
+[[cls-12.1]]
+=== Introduction
+
+<<S100>> provides for supplying the following categories of metadata with
+<<S100>> based Exchange Sets:
+
+* Metadata about the overall Exchange Set and the Exchange Catalogue;
+* Discovery metadata about each of the datasets contained in the Exchange
+Set; and
+* Discovery metadata about the support files that make up the package;
+* Metadata about any Feature, Portrayal, or Interoperability Catalogues
+included in the Exchange Set.
+
+In an S-100 Exchange Set, the above metadata is provided by the Exchange
+Catalogue, which is an XML file containing XML blocks describing
+discovery metadata for the exchange set and its components.
+
+The discovery metadata classes described in <<S100,part=17>> have
+numerous attributes which enable important information about the datasets
+and accompanying support files to be examined without the need to process
+the data, for example, decrypt, decompress, load, etc.
+<<S100,figure="17-2">> depicts the conceptual structure of an S-100
+Exchange Set and the relationships between components of the Exchange Set
+and discovery metadata in the Exchange Catalogue. The Exchange Catalogue
+is structured as depicted in <<S100,figure="17-6">> and
+<<S100,figure="17-7">>. Detailed specifications for metadata are provided
+in <<S100,clause="17-4.5">>.
+
+This edition of S-130 implements the metadata structure and encoding
+defined in <<S100,part=17>>. This Edition of S-130 does not include a
+Portrayal Catalogue, does not use ISO metadata files, and does not
+provide for S-130 datasets to [underline]#reference# support files. The optional
+discovery metadata which <<S100,part=17>> provides for portrayal
+catalogues and ISO metadata files are therefore not permitted for S-130
+data.
+
+<<cls-12.2>> provides details about the mandatory and optional metadata
+for S-130.
+
+[[cls-12.2]]
+=== Elements of S-130 Exchange Catalogues
+
+S-130 metadata in Exchange Catalogues is derived from
+<<S100,figure="17-7">>, with the following restrictions:
+
+* S-130 does not use certain optional elements and fields defined in
+S-100 generic metadata. Elements that are optional in the generic S-100
+catalogue model but not used in S-130 are not shown.
+* S-130 makes certain optional <<S100>> elements or fields mandatory.
+Elements that are optional in <<S100>> but mandatory in S-130 are shown
+with the restricted multiplicity in place of that given in
+<<S100,part=17>> (for example, as "1" instead of the generic "0..1") and
+the restriction is noted in the Remarks column.
+* S-130 imposes certain product-specific requirements on the values of
+some metadata fields. These requirements are described in the Remarks
+column.
+
+In S-130 Edition 2.0.0 the only catalogues defined for S-130 products are
+Feature Catalogues.
+
+The default language used by the Exchange Catalogue may be specified in
+the _defaultLocale_ field of *S100_ExchangeCatalogue* (clause 0). If
+omitted, the default language is English. See
+<<S100,clause="17-4.6">>--<<S100,clause="17-4.8">> for guidance on
+encoding of metadata in languages other than English.
+
+The following clauses define the mandatory and optional metadata used by
+S-130. Differences from generic <<S100>> metadata are emphasized for
+developer convenience in bold text in the documentation tables, and
+comments noting the difference are included in the Remarks column. Where
+S-130 does not impose any restrictions on the <<S100>> class, the
+corresponding documentation table has been omitted from this document.
+
+<<fig-12-1>> below depicts the detailed structure of the S-130 Exchange
+Catalogue. This Figure is derived from <<S100,figure="17-7">>, modified
+to omit elements (classes, attributes, and enumeration values) that are
+optional in the generic <<S100>> catalogue model and not used in S-130.
+
+[%landscape]
+<<<
+
+[[fig-12-1]]
+.Exchange Catalogue class details
+image::img06.png[width=45%]
+
+[[cls-12.2.1]]
+==== S100_ExchangeCatalogue
+
+The S-130 Exchange Catalogue metadata conforms to <<S100,part=17>> with
+additional S-130-specific restrictions.
+
+.S100_ExchangeCatalogue
+[cols="a,a,a,a,a",options=header]
+|===
+| Name | Description | Mult | Type | Remarks
+
+| S100_ExchangeCatalogue
+| An Exchange Catalogue contains the discovery metadata about the exchange datasets and support files
+| -
+|
+| -
+
+| identifier
+| Uniquely identifies this Exchange Catalogue
+| *1*
+| S100_ExchangeCatalogueIdentifier
+| 0..1 multiplicity in S-100 restricted to 1 in S-130
+
+| contact
+| Details about the issuer of this Exchange Catalogue
+| *1*
+| S100_CataloguePointOfContact
+| 0..1 multiplicity in S-100 restricted to 1 in S-130
+
+| productSpecification
+| Details about the Product Specifications used for the datasets contained in the Exchange Catalogue
+| **1**,.*
+| S100_ProductSpecification
+| The Exchange Catalogue may contain datasets from Product Specifications other than S-130
+
+0..* multiplicity in S-100 restricted to 1..* in S-130
+
+| defaultLocale
+| Default language and character set used for all metadata records in this Exchange Catalogue
+| 0..1
+| PT_Locale
+| Default is English and UTF-8.
+
+| otherLocale
+| Other languages and character sets used for the localized metadata records in this Exchange Catalogue
+| 0..*
+| PT_Locale
+| Required if any localized entries are present in the Exchange Catalogue
+
+| exchangeCatalogueDescription
+| Description of what the Exchange Catalogue contains
+| 0..1
+| CharacterString
+|
+
+| exchangeCatalogueComment
+| Any additional Information
+| 0..1
+| CharacterString
+|
+
+| certificates
+| Signed public key certificates referred to by digital signatures in the Exchange Set
+| 0..*
+| S100_SE_CertificateContainerType
+| Content defined in <<S100,part=15>>. All certificates used, except the SA root certificate (installed separately by the implementing system) shall be included
+
+| dataServerIdentifier
+| Identifies the data server for the permit
+| 0..1
+| CharacterString
+|
+
+| datasetDiscoveryMetadata
+| Exchange Catalogues may include or reference discovery metadata for the datasets in the Exchange Set
+| 0..*
+| Aggregation S100_DatasetDiscoveryMetadata
+|
+
+| catalogueDiscoveryMetadata
+| Metadata for Catalogue
+| 0..*
+| Aggregation S100_CatalogueDiscoveryMetadata
+| Metadata for the Feature Catalogue, if included in the Exchange Set. Portrayal and Interoperability Catalogues are not defined for S-130.
+
+| supportFileDiscoveryMetadata
+| Exchange Catalogues may include or reference discovery metadata for the support files in the Exchange Set
+| 0..*
+| Aggregation S100_SupportFileDiscoveryMetadata
+|
+|===
+
+[[cls-12.2.2]]
+==== S100_ExchangeCatalogueIdentifier
+
+S-130 uses S100_ExchangeCatalogueIdentifier without modification.
+
+[[cls-12.2.3]]
+==== S100_CataloguePointofContact
+
+S-130 uses S100_CataloguePointOfContact without modification.
+
+[[cls-12.2.4]]
+==== S100_DatasetDiscoveryMetadata
+
+S-130 restricts the multiplicity and contents of
+S100_DatasetDiscoveryMetadata as described in the Remarks column in the
+table below.
+
+Dataset discovery metadata for an update dataset also uses
+S100_DatasetDiscoveryMetadata. Update dataset metadata is intended to
+describe information about an update dataset. It facilitates the
+management and exploitation of data and is an important requirement for
+understanding the characteristics of an update dataset. Whereas dataset
+metadata is usually fairly comprehensive, metadata for update datasets
+only describe the issue date and sequential relation to the base dataset.
+Optional fields may therefore be omitted for update metadata unless
+mandated in the Remarks column.
+
+.S100_DatasetDiscoveryMetadata
+[cols="a,a,a,a,a",options=header]
+|===
+| Name | Description | Mult | Type | Remarks
+
+| S100_DatasetDiscoveryMetadata
+| Metadata about the individual datasets in the Exchange Catalogue
+| -
+| -
+| *The optional S-100 attributes* *_navigationPurpose, temporalExtent_ and _approximateGridResolution_ are prohibited in S-130.*
+
+*The optional S-100 attributes _dataCoverage_ and _editionNumber_ are mandatory in S-130*
+
+| fileName
+| Dataset file name
+| 1
+| URI
+| See <<S100,clause="1-4.6">>
+
+| description
+| Short description giving the area or location covered by the dataset
+| 0..1
+| CharacterString
+| For example a harbour or port name, between two named locations etc.
+
+For an update dataset this field should contain a brief description of the update.
+
+| datasetID
+| Dataset ID expressed as a Maritime Resource Name
+| 0..1
+| URN
+| The URN must be an MRN
+
+| compressionFlag
+| Indicates if the resource is compressed
+| 1
+| Boolean
+| _true_ indicates a compressed dataset resource
+
+_false_ indicates an uncompressed dataset resource
+
+| dataProtection
+| Indicates if the data is encrypted
+| 1
+| Boolean
+| _true_ indicates an encrypted dataset resource
+
+_false_ indicates an unencrypted dataset resources
+
+| protectionScheme
+| Specification of method used for data protection
+| 0..1
+| S100_ProtectionScheme
+| In S-100 the only allowed value is "S100p15"
+
+| digitalSignatureReference
+| Specifies the algorithm used to compute digitalSignatureValue
+| 1
+| S100_SE_DigitalSignatureReference (see <<S100,part=15>>)
+| Signatures are mandatory in <<S100>>
+
+| digitalSignatureValue
+| Value derived from the digital signature
+| 1..*
+| S100_SE_DigitalSignature (see <<S100,part=15>>)
+| The value resulting from application of __digitalSignatureReference__
+
+Implemented as the digital signature format specified in <<S100,part=15>>
+
+*At least one S100_SE_SignatureOnData is required*
+
+| copyright
+| Indicates if the dataset is copyrighted
+| 1
+| Boolean
+| _true_ indicates the resource is copyrighted
+
+_false_ Indicates the resource is not copyrighted
+
+For an update dataset the value must be the same as the base dataset
+
+| classification
+| Indicates the security classification of the dataset
+| 0..1
+| MD_SecurityConstraints> MD_ClassificationCode (codelist)
+| . unclassified
+. restricted
+. confidential
+. secret
+. top secret
+. sensitive but unclassified
+. for official use only
+. protected
+. limited distribution
+
+For an update dataset the value must be the same as the base dataset
+
+| purpose
+| The purpose for which the dataset has been issued
+| 0..1
+| S100_Purpose
+|
+
+| notForNavigation
+| Indicates the dataset is not intended to be used for navigation
+| 1
+| Boolean
+| _true_ indicates the dataset is not intended to be used for navigation
+
+_false_ indicates the dataset is intended to be used for navigation
+
+*S-130 permits only the value* *_true_*.
+
+| specificUsage
+| The use for which the dataset is intended
+| 0..1
+| MD_USAGE>specificUsage (character string)
+| Information about specific usage(s) for which the dataset is intended
+
+| editionNumber
+| The Edition number of the dataset
+| *1*
+| Integer
+| *Mandatory in S-130*
+
+*For an update dataset the value must be the same as the base dataset*
+
+| updateNumber
+| Update number assigned to the dataset and increased by one for each subsequent update
+| *1*
+| Integer
+| Update number 0 is assigned to a new dataset
+
+*Mandatory in S-130*
+
+*For an update dataset the update sequence number, must match file name*
+
+| updateApplicationDate
+| This date is only used for the base cell files (that is new data set, re-issue and new edition), not update cell files. All updates dated on or before this date must have been applied by the producer
+| 0..1
+| Date
+|
+
+| referenceID
+| Reference back to the datasetID
+| 0..1
+| URN
+| In update metadata refers to the datasetID of the dataset metadata. This is used if and only if the dataset is an update
+
+The URN must be an MRN
+
+| issueDate
+| Date on which the data was made available by the Data Producer
+| 1
+| Date
+| *The date on which the dataset was generated.*
+
+*For an update dataset, this must be on or after the issue date of the base dataset and the most recent previous update*
+
+| issueTime
+| Time of day at which the data was made available by the Data Producer
+| 0..1
+| Time
+|
+
+| boundingBox
+| The extent of the dataset limits
+| 0..1
+| EX_GeographicBoundingBox
+| *Not used for update datasets.*
+
+| productSpecification
+| The product specification used to create this dataset
+| 1
+| S100_ProductSpecification
+|
+
+| producingAgency
+| Agency responsible for producing the data
+| 1
+| CI_ResponsibleParty>CI_Organisation
+| See <<S100,part=17>>
+
+| producerCode
+| The official IHO Producer Code from <<S62>>
+| 0..1
+| CharacterString
+| *Recommended for S-130 datasets*
+
+| encodingFormat
+| The encoding format of the dataset
+| 1
+| S100_EncodingFormat
+| *Must be GML*
+
+| dataCoverage
+| Area covered by the dataset
+| *1*..*
+| S100_DataCoverage
+| *Mandatory in S-130*
+
+*For an update, must be the same as the base dataset.*
+
+| comment
+| Any additional information
+| 0..1
+| CharacterString
+|
+
+| defaultLocale
+| Default language and character set used in the dataset
+| 0..1
+| PT_Locale
+| If omitted the language must be English, UTF-8
+
+| otherLocale
+| Other languages and character sets used in the dataset
+| 0..*
+| PT_Locale
+|
+
+| metadataPointOfContact
+| Point of contact for metadata
+| 0..1
+| CI_Responsibility > CI_Individual or CI_Responsibility > CI_Organisation
+| Only if metadataPointOfContact is different from producingAgency
+
+| metadataDateStamp
+| Date stamp for metadata
+| 0..1
+| Date
+| May or may not be the issue date
+
+| replacedData
+| Indicates if a cancelled dataset is replaced by another data file(s)
+| 0..1
+| Boolean
+| *Mandatory when _purpose_ = _cancellation_*
+
+| dataReplacement
+| Dataset name
+| 0..*
+| CharacterString
+| A dataset may be replaced by 1 or more datasets
+
+*Mandatory when _replacedData_ = true_*
+
+| resourceMaintenance
+| Information about the frequency of resource updates, and the scope of those updates
+| 0..1
+| MD_MaintenanceInformation
+| <<S100>> restricts the multiplicity to 0..1 and adds specific restrictions on the <<ISO19115>> structure and content. See clause *MD_MaintenanceInformation* in <<S100,part=17>>
+
+Format: PnYnMnDTnHnMnS (XML built-in type for <<ISO8601>> duration). See <<S100,clause="17-4.9">> for encoding guidance
+|===
+
+===== S100_NavigationPurpose
+
+The enumeration S100_NavigationPurpose is not used in S-130.
+
+===== S100_DataCoverage
+
+S-130 uses S100_DataCoverage with the restrictions specified in the following table.
+
+.S100_DataCoverage
+[cols="a,a,a,a,a",options=header]
+|===
+| Name | Mult | Value | Type | Remarks
+
+| S100_DataCoverage
+| -
+| -
+| -
+| *The S-100 attributes* *_approximateGridResolution, temporalExtent, maximumDisplayScale, and minimumDisplayScale_ are not used in S-130.*
+
+| boundingPolygon
+| 1
+|
+| EX_BoundingPolygon
+| See Note (from <<S100>>)
+
+| optimumDisplayScale
+| 0..1
+|
+| Integer
+|
+|===
+
+NOTE: _boundingPolygon_ is restricted to a single GML Polygon with one
+exterior and 0 or more interiors expressed as Linear Rings using SRS
+EPSG:4326. The exterior and optional interiors shall be composed of a
+closed sequence of >=4 coordinate positions expressed individually or as
+a list (posList). The GML polygon shall have a valid GML identifier.
+
+===== S100_Purpose
+
+S-130 does not use the _delta_ value from the list defined in <<S100>>.
+
+.S100_Purpose
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_Purpose
+| The purpose of the dataset
+| -
+|
+
+| Value
+| newDataset
+| Brand new dataset
+| 1
+| No data has previously been produced for this area
+
+| Value
+| newEdition
+| New edition of the dataset or Catalogue
+| 2
+| Includes new information which has not been previously distributed by updates
+
+| Value
+| update
+| Dataset update
+| 3
+| Changing some information in an existing dataset
+
+| Value
+| reissue
+| Dataset that has been re-issued
+| 4
+| Includes all the updates applied to the original dataset up to the date of the re-issue. A re-issue does not contain any new information additional to that previously issued by updates
+
+| Value
+| cancellation
+| Dataset or Catalogue that has been cancelled
+| 5
+| Indicates the dataset or Catalogue should no longer be used and can be deleted
+|===
+
+===== S100_TemporalExtent
+
+S-130 does not use S100_TemporalExtent.
+
+===== S100_EncodingFormat
+
+S-130 uses only the value _GML_ from the list defined in <<S100>>.
+
+.S100_EncodingFormat
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_EncodingFormat
+| The encoding format
+| -
+| Only the GML encoding format is permitted for S-130 datasets.
+
+| Value
+| GML
+| The GML data format as defined in Part 10b
+| 2
+|
+|===
+
+===== S100_ProductSpecification
+
+S-130 uses S100_ProductSpecification with the restrictions specified in
+the table below.
+
+.S100_ProductSpecification
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_ProductSpecification
+| The Product Specification contains the information needed to build the specified product
+| -
+| -
+|
+
+| Attribute
+| name
+| The name of the Product Specification used to create the datasets
+| *1*
+| CharacterString
+| *Mandatory in S-130.*
+
+The name in the Product Specification Register, in the IHO Geospatial Information (GI) Registry. For S-130, this is "Polygonal Demarcations of Global Sea Areas" (without quotes)
+
+| Attribute
+| version
+| The version number of the Product Specification
+| *1*
+| CharacterString
+| *Mandatory in S-130*.
+
+Value: 2.0.0 for Edition 2.0.0
+
+| Attribute
+| date
+| The version date of the Product Specification
+| 0..1
+| Date
+| From the Product Specification Register of the IHO GI Registry. For interim drafts use the version date in Product Specification Metadata
+
+| Attribute
+| productIdentifier
+| Machine readable unique identifier of a product type
+| 1
+| CharacterString(Restricted to Product ID values from the IHO Product Specification Register, in the IHO Geospatial Information (GI) Registry)
+| *For S-130 this must be the string "S-130" (without quotes)*
+
+| Attribute
+| number
+| The number (registry index) used to lookup the product in the Product Specification Register
+| 1
+| Integer
+| From the Product Specification Register in the IHO Geospatial Information (GI) Registry. Visible in the GI Registry when the Product Specification is published; for interim drafts use "0".
+
+| Attribute
+| compliancyCategory
+| The level of compliance of the Product Specification to S-100
+| 0..1
+| S100_CompliancyCategory
+| *Only* *_category3_* *is permitted for S-130*
+|===
+
+====== S100_CompliancyCategory
+
+S-130 uses the S100_CompliancyCategory enumeration with a subset of the
+values defined in <<S100>>. In the absence of a portrayal catalogue and
+harmonized display requirements for S-130 (cf. <<S100,clause="4a-5.5">>),
+only _category3_ may be used.
+
+.S100_CompliancyCategory
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_CompliancyCategory
+|
+| -
+| *Only* *_category3_* *is permitted for S-130 datasets.*
+
+| Value
+| category3
+| IHO S-100 compliant with standard encoding
+| 3
+|
+|===
+
+===== S100_ProtectionScheme
+
+S-130 uses S100_ProtectionScheme without modification.
+
+===== MD_MaintenanceInformation
+
+S-130 uses the ISO class MD_MaintenanceInformation with the same
+restrictions defined in <<S100>>.
+
+===== MD_MaintenanceFrequencyCode
+
+S-130 uses the ISO codelist MD_MaintenanceFrequencyCode with allowed
+values restricted to the subset specified in <<S100>>.
+
+===== S100_SE_DigitalSignatureReference
+
+S-130 uses only the ECDSA-384-SHA2 value of
+S100_SE_DigitalSignatureReference, in conformity with the restriction in
+<<S100,clause="15-8.7">> and <<S100,clause="15-8.11.7">>.
+
+.S100_SE_DigitalSignatureReference
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_SE_DigitalSignatureReference
+| Algorithm used to compute the digital signature
+| -
+| Only ECDSA is currently used in implementations of <<S100>> for file based transfer of data to ECDIS. Other values are included for interoperability with other implementations by external standards. See <<S100,clause="15-8.4">>
+
+| Value
+| ECDSA-384-SHA2
+|
+| 8
+| 384 bits ECDSA: SHA2-384
+|===
+
+===== S100_SE_DigitalSignature
+
+S-130 conforms to <<S100,clause="15-8-11.4">>, which states: "The class
+S100_SE_DigitalSignature is realized as one of either
+S100_SE_SignatureOnData (a digital signature of a particular identified
+resource) or an additional digital signature defined using the [same
+class] which is either a S100_SE_SignatureOnData or
+S100_SE_SignatureOnSignature element as described in
+<<S100,clause="15-8.8">>. <<S100,part=17>> metadata thus allows for
+multiple digital signatures, a single mandatory S100_SE_SignatureOnData
+and any number of additional signatures, either of the data or other
+signatures." (In <<S100>>, this class is not documented separately.)
+
+S-130 uses the class S100_SE_DigitalSignature without modification;
+however, in S-100 exchange catalogues it is implemented by one of its
+subclasses S100_SE_SignatureOnData or S100_SE_SignatureOnSignature.
+
+===== S100_SE_SignatureOnData
+
+S-130 uses S100_SE_SignatureOnData without modification.
+
+===== S100_SE_SignatureOnSignature
+
+S-130 uses S100_SE_SignatureOnSignature without modification.
+
+===== DataStatus
+
+S-130 uses the S-100 enumeration DataStatus defined in <<S100,part=15>>
+without modification.
+
+===== EX_GeographicBoundingBox
+
+S-130 uses the ISO class with only the four attributes specifying the
+lower left and upper right corners. The ISO _extentTypeCode_ attribute is
+omitted.
+
+NOTE: (from <<ISO19115-1>>): This is only an approximate reference so
+specifying the Coordinate Reference System is unnecessary and need only
+be provided with a precision of up to two decimal places.
+
+===== EX_BoundingPolygon
+
+S-130 uses the ISO class with only the _polygon_ attribute. The ISO
+_extentTypeCode_ attribute is omitted.
+
+NOTE: (from <<ISO19115-1>>): If a polygon is used it should be closed
+(last point replicates first point).
+
+[[cls-12.2.5]]
+==== S100_SupportFileDiscoveryMetadata
+
+The only support files allowed in S-130 exchange sets are language packs.
+
+.S100_SupportFileDiscoveryMetadata
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult. | Type | Remarks
+
+| Class
+| S100_SupportFileDiscoveryMetadata
+| Metadata about the individual support files in the Exchange Catalogue
+| -
+| -
+| *S-130 does not use _otherDataTypeDescription or defaultLocale_*
+
+| Attribute
+| fileName
+| Name of the support file
+| 1
+| URI
+| See <<S100,clause="1-4.6">>
+
+| Attribute
+| revisionStatus
+| The purpose for which the support file has been issued
+| 1
+| S100_SupportFileRevisionStatus
+| For example new, replacement, etc
+
+| Attribute
+| editionNumber
+| The Edition number of the support file
+| 1
+| Integer
+|
+
+| Attribute
+| issueDate
+| Date on which the data was made available by the Data Producer
+| 0..1
+| Date
+| Date on which the support file was made available by its Producer
+
+| Attribute
+| supportFileSpecification
+| The Specification used to create this file
+| 0..1
+| S100_SupportFileSpecification
+|
+
+| Attribute
+| dataType
+| The format of the support file
+| 1
+| S100_SupportFileFormat
+|
+
+| Attribute
+| comment
+| Optional comment
+| 0..1
+| CharacterString
+|
+
+| Attribute
+| compressionFlag
+| Indicates if the resource is compressed
+| 1
+| Boolean
+| _true_ indicates a compressed resource
+
+_false_ indicates an uncompressed resource
+
+| Attribute
+| digitalSignatureReference
+| Specifies the algorithm used to compute digitalSignatureValue
+| 1
+| S100_SE_DigitalSignatureReference(see <<S100,part=15>>)
+|
+
+| Attribute
+| digitalSignatureValue
+| Value derived from the digital signature
+| 1..*
+| S100_SE_DigitalSignature (see <<S100,part=15>>)
+| The value resulting from application of digitalSignatureReference
+
+Implemented as the digital signature format specified in <<S100,part=15>>
+
+| Attribute
+| supportedResource
+| Identifier of the resource supported by this support file
+| 0..*
+| CharacterString
+| Conventions for identifiers are still to be developed in <<S100>>. <<S100>> allows file URI, digital signature or cryptographic hash checksums to be used.
+
+*In the interim, S-130 language packs will reference the Feature Catalogue.*
+
+| Attribute
+| resourcePurpose
+| The purpose of the supporting resource
+| 0..1
+| S100_ResourcePurpose
+| Identifies how the supporting resource is used
+|===
+
+===== S100_SupportFileFormat
+
+Language packs are XML files.
+
+.S100_SupportFileFormat
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_SupportFileFormat
+| The format used for the support file
+| -
+| *S-130 uses only XML*; language packs are all XML files
+
+| Value
+| XML
+| Extensible Markup Language
+| 4
+|
+|===
+
+===== S100_SupportFileRevisionStatus
+
+S-130 uses S100_SupportFileRevisionStatus without modification.
+
+===== S100_SupportFileSpecification
+
+S-130 uses S100_SupportFileSpecification without modification. The table
+below is included to provide information about permitted values for
+fields in S100_SupportFileSpecification.
+
+.S100_SupportFileSpecification
+[cols="a,a,a,a,a,a",options=header]
+|===
+| Role Name | Name | Description | Mult | Type | Remarks
+
+| Class
+| S100_SupportFileSpecification
+| The Standard or Specification to which a support file conforms
+| -
+| -
+| -
+
+| Attribute
+| name
+| The name of the Specification used to create the support file
+| 1
+| CharacterString
+| Value must be "S-100" (without quotes) for language packs
+
+| Attribute
+| version
+| The version number of the Specification
+| 0..1
+| CharacterString
+| Use the applicable edition of the Standard in the _name_ attribute
+
+For example, "5.0.0" for language packs conforming to S-100 Edition 5.0.0
+
+| Attribute
+| date
+| The version date of the Specification
+| 0..1
+| Date
+| Omit or use the publication date in the GI Registry
+|===
+
+===== S100_ResourcePurpose
+
+S-130 permits only the _languagePack_ value in S100_ResourcePurpose.
+
+.S100_ResourcePurpose
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_ResourcePurpose
+| Defines the purpose of the supporting resource
+| -
+| *S-130 allows only language packs as support files and the allowed values of the S-100 enumeration are restricted accordingly*
+
+| Value
+| languagePack
+| A Language pack
+| 3
+|
+|===
+
+[[cls-12.2.6]]
+==== S100_CatalogueDiscoveryMetadata
+
+S-130 uses S100_CatalogueDiscoveryMetadata without modification. This
+class is used to provide metadata about the Feature Catalogues if it is
+included in the Exchange Set.
+
+===== S100_CatalogueScope
+
+Since S-130 does not use portrayal or interoperability catalogues, the
+corresponding values are not used in S-130. Only the _featureCatalogue_
+value is used in S-130.
+
+.S100_CatalogueScope
+[cols="a,a,a,a,a",options=header]
+|===
+| Item | Name | Description | Code | Remarks
+
+| Enumeration
+| S100_CatalogueScope
+| The scope of the Catalogue
+| -
+| *S-130 exchange sets do not contain Interoperability or portrayal Catalogues and the corresponding values are removed*
+
+| Value
+| featureCatalogue
+| S-100 Feature Catalogue
+| 1
+|
+|===
+
+[[cls-12.2.7]]
+==== PT_Locale
+
+S-130 uses the ISO class PT_Locale with the restrictions defined in
+<<S100>>.
+
+The codelists for the types _LanguageCode_, _CountryCode_ and
+_MD_CharacterSetCode_ used in PT_Locale are defined in resource files
+within the S-100 XML schemas package and described in the documentation
+for the S-100 XML Schemas.
+
+[[cls-12.2.8]]
+==== S100_SE_CertificateContainer
+
+S-130 uses S100_SE_CertificateContainer without modification.
+
+[%portrait]
+<<<

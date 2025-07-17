@@ -1,0 +1,14 @@
+== Specification Scope
+
+This product specification describes one data product and therefore
+requires only one scope which is described below:
+
+*Scope ID*:: Polygonal Demarcations of Global Sea Areas
+
+*Hierarchical level*:: MD_ScopeCode -- 005 (dataset)
+
+*Hierarchical level name*:: dataset
+
+*Level description*:: information applies to the dataset
+
+*Extent*:: EX_Extent.description: Global coverage of sea areas

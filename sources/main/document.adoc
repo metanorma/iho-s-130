@@ -1,0 +1,46 @@
+= Polygonal Demarcations of Global Sea Areas
+:series: S
+:docnumber: 130
+:doctype: specification
+:edition: 2.0.0
+:language: en
+:published-date: 2025-03-20
+:copyright-year: 2025
+:status: in-force
+:committee: hssc
+:workgroup: tsmad
+:committee_2: hssc
+:workgroup_2: s100
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-doc-history.adoc[]
+
+include::sections/01-overview.adoc[]
+
+include::sections/02-scope.adoc[]
+
+include::sections/03-data-product-id.adoc[]
+
+include::sections/04-data-content.adoc[]
+
+include::sections/05-feature-catalogue.adoc[]
+
+include::sections/06-crs.adoc[]
+
+include::sections/07-data-quality.adoc[]
+
+include::sections/08-data-capture.adoc[]
+
+include::sections/09-data-delivery.adoc[]
+
+include::sections/10-data-maintenance.adoc[]
+
+include::sections/11-portrayal.adoc[]
+
+include::sections/12-metadata.adoc[]
+
+include::sections/13-list-of-annexes.adoc[]

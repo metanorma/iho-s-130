@@ -1,0 +1,100 @@
+[.preface]
+== metanorma-extension
+
+=== document history
+
+Changes to this Product Specification are coordinated by the IHO. New editions will be made available via the IHO website. Maintenance of the Product Specification must conform to IHO Technical Resolution 2/2007 as amended.
+
+[source,yaml]
+----
+- date:
+  - type: updated
+    value: 2023-01-06
+  edition: 0.0.1
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Skeleton is proposed for the Editing Sub-Group
+- date:
+  - type: updated
+    value: 2023-01-31
+  edition: 0.0.2
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Revision by Editing Sub-Group
+- date:
+  - type: updated
+    value: 2023-02-24
+  edition: 0.0.3
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Revision by Editing Sub-Group after meeting
+- date:
+  - type: updated
+    value: 2023-04-03
+  edition: 0.0.4
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Changes made in accordance with S-130PT5 decisions
+- date:
+  - type: published
+    value: 2023-04-14
+  edition: 1.0.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Release 1.0.0
+- date:
+  - type: updated
+    value: 2023-11-29
+  edition: 1.1.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Changes made in accordance with S-130PT6 decisions
+- date:
+  - type: updated
+    value: 2024-04-09
+  edition: 1.1.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Release 1.1.0
+- date:
+  - type: updated
+    value: 2025-02-17
+  edition: 2.0.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: Changes made in accordance with S-130PT9, S-130 PT10, S-130 TG VTC (31 Jan. 2025), and alignment with S-100 Edition 5.2.0.
+- date:
+  - type: updated
+    value: 2025-03-16
+  edition: 2.0.0
+  contributor:
+  - organization:
+      name: RM
+  amend:
+    - description: Apply changes decided at S-130 PT11 and after
+- date:
+  - type: updated
+    value: 2025-03-20
+  edition: 2.0.0
+  contributor:
+  - organization:
+      name: S-130PT
+  amend:
+    - description: HSSC Final Draft
+----

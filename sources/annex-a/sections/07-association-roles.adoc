@@ -1,0 +1,86 @@
+[[cls-A-7]]
+== Association Roles
+
+=== theInformation
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A pointer to an object that provides more information about the referencing feature or information type.
+|===
+
+=== theComponent
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A pointer to a part in a whole-part relationship.
+|===
+
+=== theCollection
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A pointer to the aggregate in a whole-part relationship.
+|===
+
+=== theAdditionalSpatialInformation
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A reference to supplemental information about location or extent.
+|===
+
+=== theSpatialInformationSource
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A reference to a source from which location or extent information has been obtained or derived.
+|===
+
+=== theFeatureDataSource
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A reference to a source from which data about a feature has been obtained or derived.
+|===
+
+=== lineDerivedZone
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Reference to an area whose location or boundaries are derived either wholly or partially from one or more construction lines.
+|===
+
+=== pointDerivedZone
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Reference to an area whose location or boundaries are derived either wholly or partially from one or more contributing points.
+|===
+
+=== zoneConstructionLimit
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Reference to a construction line upon which demarcation of an area is based.
+|===
+
+=== zoneContributingLocation
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Reference to a contributing point upon which demarcation of an area is based.
+|===
+
+=== lineContributingLocation
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Reference to a point location used for computing one or more of the lines used for constructing a limit or the boundaries of an area.
+|===
+
+=== contributedLimit
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Reference to a construction line derived from one or more contributing points.
+|===
