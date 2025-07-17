@@ -1,0 +1,263 @@
+[[cls-A-8]]
+== Attribute and Enumerate Descriptions
+
+[[cls-A-8.1]]
+=== reportedDate
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# The date that the item was observed, done, or investigated.
+
+[underline]#Attribute Type:# S100_TruncatedDate
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.2]]
+=== source
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# The publication, document, or reference work from which information comes or is acquired.
+
+[underline]#Attribute Type:# Text
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.3]]
+=== dateStart
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# The earliest date on which an object (for example a buoy) will be present.
+
+[underline]#Attribute Type:# S100_TruncatedDate
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.4]]
+=== dateEnd
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# The latest date on which an object (for example a buoy) will be present.
+
+[underline]#Attribute Type:# S100_TruncatedDate
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.5]]
+=== locationByText
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A textual rendering of a geographic location.
+
+[underline]#Attribute Type:# Text
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.6]]
+=== textLatitude
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Textual description of latitude information.
+
+[underline]#Attribute Type:# Text
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.7]]
+=== textLongitude
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Textual description of longitude information.
+
+[underline]#Attribute Type:# Text
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.8]]
+=== referenceSystem
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# A textual rendering of a coordinate reference system (CRS).
+
+[underline]#Attribute Type:# Text
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.9]]
+=== featureIdentifier
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# An identifier referencing an object or feature that is external to the dataset, expressed in Uniform Resource Name (URN) format.
+
+[underline]#Attribute Type:# URN
+
+[underline]#Remarks:#
+
+* A unique worldwide identifier of feature records is provided through a feature attribute (featureIdentifier) utilizing the Maritime Resource Name (MRN) concept and namespace.
+|===
+
+[[cls-A-8.10]]
+=== maximumDisplayScale
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# The value considered by the Data Producer to be the maximum (largest) scale at which the data is to be displayed before it can be considered to be "grossly overscaled".
+
+[underline]#Attribute Type:# Integer
+
+[underline]#Indication:# The modulus of the scale is indicated, that is 1:22 000 is encoded as 22000.
+
+[underline]#Unit:# none
+
+[underline]#Minimum range:# 1
+
+[underline]#Maximum range:# 10000000
+
+[underline]#Range Closure:# closedInterval (minimum range stem:[<=] value stem:[<=] maximum range)
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.11]]
+=== minimumDisplayScale
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# The smallest intended viewing scale for the data.
+
+[underline]#Attribute Type:# Integer
+
+[underline]#Indication:# The modulus of the scale is indicated, that is 1:22 000 is encoded as 22000.
+
+[underline]#Unit:# none
+
+[underline]#Minimum range:# 1
+
+[underline]#Maximum range:# 10000000
+
+[underline]#Range Closure:# closedInterval (minimum range stem:[<=] value stem:[<=] maximum range)
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.12]]
+=== version
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Identification of a specific form or variation of an entity.
+
+[underline]#Attribute Type:# Integer
+
+[underline]#Unit:# none
+
+[underline]#Minimum range:# 1
+
+[underline]#Range Closure:# geSemiInterval (minimum range stem:[<=] value)
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+[[cls-A-8.13]]
+=== sourceType
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Type of the source.
+
+[underline]#Attribute Type:# Enumeration
+
+. *law or regulation*
++
+--
+[underline]#IHO Definition:# Treaty, convention, or international agreement; law or regulation issued by a national or other authority.
+--
+. *official publication*
++
+--
+[underline]#IHO Definition:# Publication not having the force of law, issued by an international organisation or a national or local administration.
+--
+[start=12]
+. *products issued by HO services*
++
+--
+[underline]#IHO Definition:# Information obtained from products issued by Hydrographic Offices.
+--
+[start=10]
+. *remotely sensed images*
++
+--
+[underline]#IHO Definition:# Information obtained from satellite images.
+--
+
+[underline]#Remarks:#
+
+* The use of remotely sensed images is only intended for improvement of the coastline geometry.
+|===
+
+[[cls-A-8.14]]
+=== lineType
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Indication of the nature of the path between two points, associated with a line segment.
+
+[underline]#Attribute Type:# Enumeration
+
+. *rhumb line*
++
+--
+[underline]#IHO Definition:# A line on the surface of the earth making the same oblique angle with all meridians; a loxodrome spiralling toward the poles in a constant true direction. parallels and meridians, which also maintain constant true directions, may be considered special cases of the rhumb line. A rhumb line is a straight line on a Mercator projection. Sometimes shortened to rhumb.
+--
+. *great circle*
++
+--
+[underline]#IHO Definition:# The intersection of a sphere and a plane through its center. See also Orthodrome.
+--
+. *undetermined/unknown*
++
+--
+[underline]#IHO Definition:# Having an unknown value.
+
+[underline]#Remarks:#
+
+* No remarks.
+--
+|===

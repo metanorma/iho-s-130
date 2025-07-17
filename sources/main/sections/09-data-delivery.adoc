@@ -1,0 +1,183 @@
+== Data Delivery
+
+=== Data Product Delivery Information
+
+This data product specification defines GML as the primary format in
+which S-130 data products are delivered. The delivery format is described
+by the following items (from <<ISO19131>>): format name, version,
+specification description, language, character set.
+
+[[tab-9-1]]
+.Data product delivery
+[cols="a,a,a",options=header]
+|===
+| Name | <<ISO19131>> Elements | Value
+
+| Format name | DPS_DeliveryInformation.deliveryFormat >
+
+DPS_DeliveryFormat.formatName | GML footnoteblock:[gml]
+| Version | DPS_DeliveryInformation.deliveryFormat >
+
+DPS_DeliveryFormat.version | 3.2.1
+| Specification description | DPS_DeliveryInformation.deliveryFormat >
+
+DPS_DeliveryFormat.specification | GML footnoteblock:[gml]
+| Language | DPS_DeliveryInformation.deliveryFormat >
+
+DPS_DeliveryFormat.language | English
+| Character set | DPS_DeliveryInformation.deliveryFormat >
+
+DPS_DeliveryFormat.characterSet > MD_CharacterSetCode | 004 -- utf8
+|===
+
+[[gml]]
+[NOTE]
+--
+GML is an XML encoding for the transport and storage of geographic information, including both the geometry and the properties of geographic features, between distributed systems. The XML Schema for the GML application schema is provided in a schema document S130.xsd which imports other schema(s) defining common types. Feature instances must validate against S130.xsd and conform to all other requirements specified in this data product specification including all constraints not captured in the XML Schema document.
+--
+
+==== New editions
+
+When a new edition of a dataset is received, the system must replace the
+previous edition, along with its updates, with the new edition of the
+dataset.
+
+=== Exchange Set
+
+Data which conforms to this product specification must be delivered by
+means of an exchange set.
+
+==== Components of the exchange set
+
+An exchange set will consist of one or more S-130 datasets. Each exchange
+set will include a single (XML) exchange catalogue file containing
+discovery metadata for each S-130 dataset. S-130 exchange set catalogues
+conform to <<S100,clause="17-4.5">>.
+
+S-130 Exchange set structure conforms to <<S100,clause="17-2">>. Since
+S-130 exchange sets do not contain ISO metadata files, the corresponding
+components are omitted from <<fig-9-1>> below.
+
+[[fig-9-1]]
+.S-130 Exchange set components
+image::img04.png[]
+
+==== Exchange set structure
+
+Data products are delivered as packages (such as ZIP archives or files
+organised within a file system folder/directory structure) containing
+both the Exchange Catalogue and one or more datasets, updates or language
+packs.
+
+The structure of an S-130 Exchange Set must be according to the structure
+described below, which is based on <<S100,clause="17-4.2">>. The S-130
+Exchange Set structure is depicted in <<fig-9-2>>.
+
+. All content must be placed inside a top root folder named S100_ROOT.
+This is the only top level root folder in an Exchange Set containing only
+S-100 products.
+. The S100_ROOT folder must contain a subfolder for S-130 which holds
+content specific to S-130, an Exchange Set Catalogue, CATALOG.XML, and
+its digital signature CATALOG.SIGN.
+. The S-130 subfolder must contain subfolders for the component dataset
+files (DATASET_FILES) and Catalogues (CATALOGUES) as required:
+.. The DATASET_FILES subfolder is required if and only if the Exchange
+Set contains an S-130 dataset (base or update).
+.. The CATALOGUES subfolder is required if and only if the Exchange Set
+contains a Feature Catalogue. (This Edition of S-130 does not include
+Interoperability or Portrayal Catalogues.)
+. The DATASET_FILES folder must contain a subfolder named according to
+the Producer Code.
+. Individual data files must be placed under the Producer subfolder,
+either directly in the Producer folder, or within a lower-level subfolder
+hierarchy. Individual data files may be optionally placed in their own
+subfolders or grouped with other data files.
+. An Exchange Set may carry a Feature Catalogue, which should also be
+placed in the CATALOGUES folder.
+. An exchange set may include zero, one, or more language packs. If
+included, language packs must be placed in the SUPPORT_FILES folder.
+. Except for the signature of the Exchange Catalogue file (CATALOG.XML),
+which is in the CATALOG.SIGN file, all digital signatures are included
+within their corresponding resource metadata records in CATALOG.XML.
+. Dataset and Catalogue file and/or folder names should be such as to
+avoid inadvertent overwriting of files.
+. Digital signatures are required for Exchange Sets and datasets
+conforming to <<S100>>. All resources included within an Exchange Set,
+including support files and catalogues, must be signed (<<S100,part=17>>).
+
+[[fig-9-2]]
+.Typical S-130 Exchange Set structure
+image::img05.png[]
+
+General guidelines for Exchange Set structure are provided in
+<<S100,part=17>>.
+
+Note that the names and locations of files are coded within the
+CATALOG.XML files, and therefore files and folders should not be renamed
+or relocated by Producers or end-user systems unless these references can
+be updated. Feature Catalogues can be relocated to a common system
+location if their internal structure is maintained.
+
+[[cls-9.3]]
+=== Dataset Naming Convention
+
+All dataset files must have unique world-wide file identifiers. The file
+identifier of the dataset should not be used to describe the physical
+content of the file. The dataset file metadata that accompanies the file
+will inform the user of the name and purpose of the file (new,
+replacement and deletion).
+
+In this encoding the dataset files are named according to the
+specifications given below:
+
+130CCCCØØØØØØØØØØ.GML
+
+The main part forms an identifier where:
+
+* 130 - the first 3 characters identify the dataset as an S-130 dataset
+(mandatory).
+* CCCC - the fourth to seventh characters identify the producer code of
+the issuing agency. Where the producer code is derived from a 2 or 3
+character format, the missing characters of the producer code must be
+populated with zeros ("00" or "0" respectively) for the sixth and seventh
+characters of the dataset file name, as required.
+* ØØØØØØØØØØ - the eighth to the maximum seventeenth characters are
+optional and may be used in any way by the producer to provide the unique
+file name. The following characters are allowed in the dataset name: A to
+Z, 0 to 9 and the special character _ (underscore).
+* .GML -- new datasets and new editions.
+
+Update datasets must have the same base name as the base dataset with a
+suffix of the form "_NNN" corresponding to the update number:
+
+130CCCCØØØØØØØØØØ_NNN.GML where NNN is 001, 002, etc.
+
+The maximum length of an update file is therefore 4 characters greater
+than for base datasets.
+
+[[cls-9.4]]
+=== Support File Naming Convention
+
+Support file names are subject to the same naming rules as dataset file
+names (<<cls-9.3>>), except that the extension is determined by the
+support file format (XML for language packs) and the length is determined
+by the name of the Feature Catalogue file.
+
+This clause covers names of language packs, which are the only support
+files allowed in this Edition of S-130.
+
+If a language pack created by a Data Producer for the S-130 Feature
+Catalogue is included, it must have the standard 7-character "130CCCC"
+prefix and the same base name as the standard IHO-issued Feature
+Catalogue with the 3-letter <<ISO639-2>> language code suffixed. The
+language codes must be exactly those in the <<S100>> codelist for
+languages (S100_MD_LanguageCode, which can be found in the <<S100>>
+Schema distribution). The file extension must be ".XML".
+
+NOTE: A language pack issued by the IHO for the IHO Feature Catalogue
+will use the IHO Producer Code.
+
+[example]
+The language pack for Italian translations issued by the Data Producer
+with code "IT01" of the Feature Catalogue named 130_1_1_0_FC.XML is named
+130IT01_130_1_1_0_FC_ita.XML.

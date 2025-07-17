@@ -1,0 +1,564 @@
+== General
+
+=== Introduction
+
+This S-130 Data Classification and Encoding Guide (DCEG) contains rules
+and guidance for converting data describing the real world into data
+products that conform to the S-130 Product Specification.
+
+The S-130 Product Specification contains an application schema (UML model)
+describing the conceptual domain model in terms of classes and
+relationships, and a Feature Catalogue (see S-130 Annex C) that specifies
+the data model, i.e., specifies the data model types and associations
+corresponding to the various classes and relationships in the application
+schema.
+
+To simplify the DCEG text, the various data model types will be provided
+without the suffixes "class", "type" or "instance"; e.g. the term
+"feature" should be understood as "feature class" or "feature type" or
+"feature instance" as best fits the immediate context in which it is used
+(and where there might be confusion, it is written out in full as feature
+class/type/instance). The model defines real world entities as a
+combination of descriptive and spatial characteristics.
+
+This section of the DCEG contains general information needed to understand
+the encoding rules and describes fundamental common rules and constraints.
+It also describes datasets and metadata. The data model object types used
+within S-130 and their encoding rules and guidelines are defined in detail
+in subsequent sections of this document.
+
+Within this document the features, information types, associations and
+attributes appear in *bold text*.
+
+[[cls-A.2.2]]
+=== Descriptive characteristics
+
+==== Feature
+
+A feature contains descriptive attributes that characterize real world
+entities.
+
+The word 'feature' as used in the ISO 191xx series and in S-100 based
+product specifications has two distinct but related senses -- 'feature
+type' and 'feature instance'. A feature instance is a single occurrence of
+the feature and is represented as an object in a dataset.
+
+The location of a feature instance on the Earth's surface is indicated by
+a relationship to one or more spatial primitive instances. A feature
+instance may exist without referencing a spatial primitive instance.
+
+===== Geographic feature class
+
+*Geographic (Geo) feature* types carry the descriptive characteristics of
+a real world entity which is provided by a spatial primitive instance.
+
+===== Meta feature class
+
+*Meta feature type* contains information about other features.
+
+==== Information type
+
+An information type has no geometry and therefore is not associated to any
+spatial primitives to indicate its location.
+
+An information type may have attributes and can be associated with
+features or other information types in order to carry information
+particular to these associated features or information types.
+
+=== Spatial Characteristics
+
+==== Spatial primitives
+
+The allowable spatial primitive for each feature is defined in the Feature
+Catalogue. Allowable spatial primitives are point, curve and surface.
+
+Within this document, allowable spatial primitives are included in the
+description of each feature. For easy reference, <<tab-A-2-1>> below
+summarises the allowable spatial primitives for each feature. In the
+table, abbreviations are as follows: point (P), curve (&#x200c;c), surface (S) and
+none (N).
+
+[[tab-A-2-1]]
+.Features permitted for PDGSA and their spatial primitives
+[cols="a,a,a,a,a",options=header]
+|===
+| Feature | P | C | S | N
+
+| Global Sea Area
+|
+|
+| x
+| x
+
+| Construction Line
+|
+| x
+|
+|
+
+| Contributing Point
+| x
+|
+|
+|
+
+| Data Coverage
+|
+|
+| x
+|
+|===
+
+==== Capture density guideline
+
+A curve consists of one or more curve segments. Long lines may need to
+have additional coordinates inserted.
+
+The presentation of line styles may be affected by curve length.
+Therefore, the encoder must be aware that splitting a curve into numerous
+small curves may result in poor symbolization.
+
+=== Attributes
+
+Attributes may be simple type or complex type. Complex (&#x200c;c) attributes are
+aggregates of other attributes that can be simple type or complex type.
+Simple attributes are assigned to one of 10 types.
+
+The binding of attributes to feature types, the binding of attributes to
+attributes to construct complex attributes, and attribute multiplicity is
+defined in the Feature Catalogue. Within this document, the allowable
+attributes are included in the description of each feature type, as well
+as the allowable values for enumeration type attributes.
+
+[[cls-A-2.4.1]]
+==== Multiplicity
+
+In order to control the number of allowed attribute values or
+sub-attribute instances within a complex attribute, S-100 uses the concept
+of multiplicity. This defines lower and upper limits for the number of
+values, whether the order of the instances has meaning and if an attribute
+is mandatory or not. Common examples are shown in the table below:
+
+Format: _MinOccurs_, _MaxOccurs_ (if * Infinite) _(ordered)_ -- sequential
+
+[[tab-A-2-2]]
+.Multiplicity
+[cols="a,a",options=header]
+|===
+| Multiplicity | Explanation
+
+| 0,1 | An instance is not required; there can be only one instance.
+| 1,1 | An instance is required and there must only be one instance.
+| 0,* | An instance is not required and there can be an infinite number of instances.
+| 1,* | An instance is required and there can be an infinite number of instances.
+| 1,* (ordered) | An instance is required and there can be an infinite number of instances, the order of which has a specific meaning.
+| 2,2 | Two instances are required and no more than two.
+|===
+
+[[cls-A-2.4.2]]
+==== Simple attribute types
+
+Each simple attribute is assigned to one of the following types:
+
+EN:: Enumeration: A fixed list of valid identifiers of named literal
+values. Attributes of an enumerated type may only take values from this
+list.
+
+CL:: Codelist: An open enumeration, or the identifier of a vocabulary
+(mapping between codes, labels and definitions).
+
+BO:: Boolean: A value representing binary logic. The value can be either
+_True_ or _False_. The default state for Boolean type attributes (that is,
+where the attribute is not populated for the feature) is _False_.
+
+RE:: Real: A signed Real (floating point) number consisting of a mantissa
+and an exponent. The representation of a real is encapsulation and usage
+dependent.
++
+--
+[example]
+23.501, -0.0001234, -23.0, 3.141296
+--
+
+IN:: Integer: A signed integer number. The representation of an integer is
+encapsulation and usage dependent.
++
+--
+[example]
+29, -65547
+--
+
+TE:: Free text: A CharacterString, that is an arbitrary-length sequence of
+characters including accents and special characters from a repertoire of
+one of the adopted character sets.
+
+TD:: Truncated Date (S100_TruncatedDate): Allows a partial date to be
+encoded as an extension to the ISO 8601 compliant date attribute type
+values for year, month and day according to the Gregorian Calendar
++
+--
+[example]
+`--------02----` (Year and date not encoded)
+
+The exact format depends on the encoding. A GML dataset would use a GML
+built-in type and encode the above example as `<gMonth>--02<gMonth>`. An
+8211 data format based dataset would encode the truncated date as
+`--------02----`.
+--
+
+TI:: Time: A time is given by an hour, minute and second. Character
+encoding of a time is a string that follows the XML Schema standard type
+for time because S-130 uses GML, which is an XML-based format.
++
+--
+Time zone according to UTC is optional.
+
+[example]
+18:30:59Z; 18:30:59+01:00; 18:30:59
+--
+
+DA:: Date: A date provides values for year, month and day according to the
+Gregorian Calendar, conforming to the XML Schema format for dates because
+S-130 uses GML, which is an XML-based format.
++
+--
+[example]
+1998-09-18 (YYYY-MM-DD)
+--
+
+URN:: A persistent, location-independent, resource identifier that follows
+the syntax and semantics for URNs specified in <<RFC2141>>.
+
+Real or integer attribute values must not be padded by non-significant
+zeroes. For example, for a signal period of 2.5 seconds, the value
+populated for the attribute *signal period* must be 2.5 and not 02.50.
+
+[[cls-A-2.4.3]]
+==== Mandatory and conditional attributes
+
+Some attributes are mandatory and must be populated for a given feature
+type. There are some reasons why attribute values may be considered
+mandatory:
+
+* They are required to support correct portrayal;
+* Certain features make no logical sense without specific attributes;
+* Some attributes are required for safety of navigation.
+
+Within this document, mandatory attributes (multiplicity 1,1; 1,n (n>1);
+or 1,*) are identified in the description of each feature type. For easy
+reference, <<tab-A-2-3>> below summarises the mandatory attributes for
+each feature type (note that mandatory sub-attributes of complex
+attributes are not included in this table):
+
+[[tab-A-2-3]]
+.Mandatory attributes for PDGSA feature classes
+[cols="97,103"]
+|===
+| Feature | Mandatory Attributes
+
+| Global Sea Area | featureIdentifier
+| Construction Line | lineType
+| Contributing Point | -
+| Data Coverage | maximumDisplayScale minimumDisplayScale
+|===
+
+[[cls-A-2.4.4]]
+==== Missing attribute values
+
+Where a value of a mandatory attribute is not known, the attribute must be
+populated with an empty (nilled) value. Where the value of a non-mandatory
+attribute is not known, the attribute should not be included in the
+dataset. In a base dataset, when an attribute code is present but the
+attribute value is missing, it means that the producer wishes to indicate
+that this attribute value is unknown.
+
+In an Update dataset, when an attribute XML tag is present but the
+attribute value is missing it means:
+
+* that the value of this attribute is to be replaced by an empty (nilled)
+value if it was present in the original dataset, or
+
+* that an empty (nilled) value is to be inserted if the attribute was not
+present in the original dataset.
+
+[[cls-A-2.4.5]]
+==== Text attribute types
+
+Character string values for text attributes must be UTF-8 character
+encoding.
+
+[[cls-A-2.4.6]]
+==== Spatial attribute types
+
+Spatial attribute types must contain referenced geometry. Each spatial
+attribute instance must be referenced by a feature instance or another
+spatial attribute instance.
+
+[[cls-A-2.4.7]]
+==== Dates
+
+Values for dates must conform to the data format. Specifically, since GML
+is an XML-based format and uses XML Schema types for dates, the XML Schema
+format for dates is used (see <<S100,table="1-2">>).
+
+[example]
+January 1, 2025 is encoded as 2025-01-01
+
+Encoded date ranges are inclusive, see <<S100,clause="3-8.3">>. For
+example:
+
+* fixed date range/date start = 2022-09-22 &#09; Commences at 000000 hours on 22
+September 2022
+
+* fixed date range/date end = 2022-10-22 &#09; Ends at 240000 hours on 22
+October 2022.
+
+[[cls-A-2.4.8]]
+==== Feature identifier
+
+The numeric component of _featureIdentifier_ attributes must be encoded as:
+
+`YYYYYYXXXXXX`
+
+where:
+
+* `YYYYYY`: number computed by adding an offset of 90.000 to the latitude
+coordinate of the centroid in decimal degrees (3 decimals);
+* `XXXXXX`: number computed by adding 180.000 to the longitude coordinate
+of the centroid in decimal degrees (3 decimals);
+* leading and trailing zeros are used as necessary so that each number
+computed as above is exactly 6 digits.
+
+[example]
+A feature with a centroid of stem:[50.0 "unitsml(deg)" " N"]
+stem:[40.0 "unitsml(deg)" " W"] (latitude=+50.0, longitude=-40.0
+in decimal degrees) will have numeric identifier component `140000140000`
+
+[[cls-A-2.5]]
+=== Datasets
+
+A Dataset is a grouping of features, meta-features, information types,
+attributes, and spatial objects referenced by features and meta-features,
+which together comprise a specific coverage.
+
+==== Data coverage
+
+An S-130 dataset can contain more than one *DataCoverage* meta-feature
+(see <<cls-A-3.1>>). The data boundary is defined by the extent of the
+*DataCoverage* Meta features. Data must only be present within
+*DataCoverage* meta-features.
+
+An Update dataset must not change the extent of the data coverage for the
+base dataset. Where the extent of the data coverage for a base dataset is
+to be changed, this must be done by issuing a New Edition of the dataset.
+
+Areas of a dataset which contain no S-130 data must be excluded from the
+area(s) covered by the meta-feature *DataCoverage*. The areas that contain
+S-130 data must be completely covered by *DataCoverage* features.
+
+Features should not have an attribute with value identical to a
+corresponding attribute of a meta feature they are covered by.
+
+=== Description of table format for S-130 geo features and information types
+
+==== Clause heading
+
+TODO: Add clause heading.
+
+[cols="a,a,a,a,a,a,a,a,a,a,a"]
+|===
+11+.<| [underline]#IHO Definition:# *FEATURE:* Definition. (Authority for definition).
+
+11+| *[underline]#S-130 Geo Feature:# Feature* span:red[S-130 feature type name]
+
+11+| *[underline]#Primitives:# Point, Curve, Surface, None* span:red[Allowable geometric primitive(s)]
+
+2+| span:blue[_Real World_]
+
+span:red[Example(s) of real-world instance(s) of the Feature.]
+4+| span:blue[_Paper Chart Symbol_]
+
+span:red[Example(s) of paper chart equivalent symbology for the Feature.]
+5+| span:blue[_ECDIS Symbol_]
+
+span:red[Example(s) of ECDIS symbology for the Feature.]
+
+3+| *S-130 Attribute*
+2+| *S-57 Acronym*
+3+| *Allowable Encoding Value*
+| *Type*
+2+| *Multiplicity*
+
+3+| category of beer
+2+|
+3+| 1: ale
+
+2: lager
+
+3: porter
+
+4: stout
+
+5: pilsener
+
+6: bock beer
+
+7: wheat beer
+
+8: pale ale
+
+9: indian pale ale
+| EN
+2+| 1,1
+
+3+| span:red[This section liststhe full list of allowable attributes for the feature. Attributes are listed in alphabetical order. Sub-attributes (Type prefix (S)) of complex (Type C) attributes are listed in alphabetical order and indented directly under the entry for the complex attribute (see below for example). Note that a complex attribute may have simple or complex attributes as sub-complex attributes.]
+2+| span:red[This section liststhe corresponding S-57 attribute acronym. A blank cell indicates no corresponding S-57 acronym.]
+3+| span:red[This section liststhe allowable encoding values (for enumeration (E) Type attributes only).]
+| span:red[Attribute type (see <<cls-A-2.4.2>>).]
+2+| span:red[Multiplicity describes the "cardinality" of the attribute in regard to the feature. See <<cls-A-2.4.1>>.]
+
+3+| fixed date range
+2+|
+3+| See <<cls-A-2.4.8>>
+| C
+2+| 0,1
+
+3+| date end
+2+| (DATEND)
+3+|
+| (S) TD
+2+| 0,1
+
+3+| date start
+2+| (DATSTA)
+3+|
+| (S) TD
+2+| 0,1
+
+3+| information
+2+|
+3+| See <<cls-A-2.4.6>>
+| C
+2+| 0,*
+
+3+| file locator
+2+|
+3+|
+| (S) TE
+2+| 0,1
+
+3+| file reference
+2+| _(TXTDSC)_ +
+_(NTXTDS)_
+3+|
+| (S) TE
+2+| 0,1
+
+3+| headline
+2+|
+3+|
+| (S) TE
+2+| 0,1
+
+3+| language
+2+|
+3+| ISO 639-2/T
+| (S) TE
+2+| 1,1
+
+3+| text
+2+| _(INFORM)_ +
+_(NINFOM)_
+3+|
+| (S) TE
+2+| 0,1
+
+3+| pictorial representation
+2+| (PICREP)
+3+| See clause 2.4.12.2
+
+[TODO]
+====
+Add correct clause number.
+====
+| TE
+2+| 0,1
+
+11+| *Feature Associations*
+
+| *S-130 Role*
+3+| *Association Type*
+3+| *Associated to*
+3+| *Type*
+| *Multiplicity*
+
+| Role name (see clause 6.xx)
+
+[TODO]
+====
+Add clause.
+====
+3+| *Name of Association* (see clause 5.xx)
+
+[TODO]
+====
+Add clause.
+====
+3+| *Feature or Information Type(s)*
+3+| Association/ Aggregation/ Composition
+| 0,1
+
+| span:red[See <<cls-A-6>>.]
+3+| span:red[See <<cls-A-5>>.]
+3+| span:red[Corresponds to the feature(s) that the subject feature may be associated to. See <<cls-A-5>>]
+3+| span:red[Association type.]
+| span:red[The individual multiplicity to which the subject feature may be associated to the "Associated to" feature(s) (see <<cls-A-5>>).]
+
+11+.<| [underline]#INT 1 Reference:#
+span:red[The INT 1 location(s) of the Feature - by INT1 Section and Section Number. (Not applicable to S-130).]
+
+*X.X.X span:red[Sub-clause heading(s)]*
+
+Introductory remarks. span:red[Includes information regarding the real world entity/situation requiring the encoding of the Feature, and where required nautical cartographic principles relevant to the Feature to aid the compiler in determining encoding requirements.]
+
+span:red[Specific instructions to encode the feature.]
+
+[underline]#Remarks:#
+
+* span:red[Additional encoding guidance relevant to the feature.]
+
+*X.X.X.X span:red[Sub-sub-clause heading(s)*]
+
+span:red[Clauses related to specific encoding scenarios for the Feature. (Not required for all Features).]
+
+[underline]#Remarks:#
+
+* span:red[Additional encoding guidance relevant to the scenario (only if required).]
+
+[underline]#Distinction:#
+span:red[List of features in the Product Specification distinct from the Feature.]
+|===
+
+[underline]#Remarks:#
+
+* S-130 Attribute: Indentation of attributes indicates sub-attributes of
+complex attributes. Complex attributes may also be sub-attributes of
+complex attributes, which is indicated by further indentation of the
+attribute name in the tables.
+* Allowable Encoding Value: For enumeration (EN) type attributes, the
+enumerate values listed are only those allowable for the particular binding
+of the attribute relevant to the feature. Allowable values may vary for the
+attribute depending on the feature to which the attribute is bound. Such
+bindings are defined in the Feature Catalogue. The full list of enumerate
+values that may be assigned to an attribute in S-101 can be found in
+<<cls-A-7>> of this document.
+* Type: The prefix (&#x200c;c) indicates that the attribute is a complex attribute.
+Complex attributes are aggregates of other attributes that can be simple
+type or complex type. The prefix (S) indicates that the attribute is a
+sub-attribute of a complex attribute. Complex attributes that are
+sub-attributes of a complex attribute, and their sub-attributes, are
+indicated by indentation of the attribute name in the S-130 Attribute
+column.
+* Feature/Feature and Feature/Information associations, including
+allowable features for association ends, are described in <<cls-A-5>> of
+this document. S-130 does not use Spatial/Information associations.

@@ -1,0 +1,88 @@
+== Meta Feature
+
+[[cls-A-3.1]]
+=== Data Coverage
+
+[cols="a,a,a,a,a,a,a,a,a,a,a"]
+|===
+11+.<| [underline]#IHO Definition:# A geographical area that describes the coverage and extent of spatial objects.
+
+11+.<| [underline]#*S-130 Meta Feature:*# *DataCoverage*
+
+11+.<| [underline]#*Super Type:*# *None*
+
+11+.<| [underline]#*Primitives:*# *Surface*
+
+2+| span:blue[_Real World_]
+4+| span:blue[_Paper Chart Symbol_]
+5+| span:blue[_ECDIS Symbol_]
+
+3+| *S-130 Attribute*
+2+| *S-57 Acronym*
+3+| *Allowable Encoding Value*
+| *Type*
+2+| *Multiplicity*
+
+3+| maximumDisplayScale
+2+|
+3+| maximum display scale < +
+minimum display scale
+| IN
+2+| 1, 1
+
+3+| minimumDisplayScale
+2+|
+3+| minimum display scale > +
+maximum display scale
+| IN
+2+| 1, 1
+
+11+.<| [underline]#INT 1 Reference:# None
+
+*3.1.1 Data Coverage*
+
+The Meta feature *DataCoverage* encodes the area covered by data within the dataset. This feature is also used to provide scale information for the dataset. There must be a minimum of one *DataCoverage* feature in the dataset. *DataCoverage* features must cover the equivalent area to the extent of the spatial types in the dataset, and must not overlap.
+
+S-130 uses *DataCoverage* features to designate the areas within the dataset bounding box where S-130 features are present and the minimum display scale for the dataset as a whole. All *DataCoverage* features in an S-130 dataset must have the same value for the _minimumDisplayScale_ attribute.
+
+The mandatory attribute _minimumDisplayScale_ is used to indicate the smallest intended viewing scale for the data. Where an empty (nilled) value is populated for minimum display scale, the application will continue to display the data regardless of how small the user selected viewing scale becomes. The value populated for _minimumDisplayScale_, therefore, is intended to be used in a series of datasets covering a geographic area to determine the dataset rendering (display) priority as the user-selected viewing scale becomes larger.
+
+The mandatory attribute _maximumDisplayScale_ is used to indicate the scale at which the Data Producer considers the dataset to be grossly overscaled and may be used by the application to trigger an appropriate indicator.
+
+In order to provide a consistent relationship between the encoded data and the way the data is displayed in applications, the values for _maximumDisplayScale_ and _minimumDisplayScale_ must be taken from the values listed in the following Table:
+
+*maximum display scale*:: *minimum display scale*
+Any value:: empty
+&nbsp;:: 10,000,000
+&nbsp;:: 3,500,000
+&nbsp;:: 1,500,000
+&nbsp;:: 700,000
+&nbsp;:: 350,000
+&nbsp;:: 180,000
+&nbsp;:: 90,000
+&nbsp;:: 45,000
+&nbsp;:: 22,000
+&nbsp;:: 12,000
+
+NOTE: The selection of values for _maximumDisplayScale_ and _minimumDisplayScale_ are at the discretion of the Data Producer. That is, any of the values listed above may be selected, with the only restrictions being that _maximumDisplayScale_ must be a smaller value than _minimumDisplayScale_ (or any value if _minimumDisplayScale_ is populated with an empty value) and all DataCoverage features have the same _minimumDisplayScale_
+
+[underline]#Remarks:#
+
+* *DataCoverage* features should not be unnecessarily split. Features with coincident boundaries and identical attribution must be merged into a single feature.
+
+[underline]#Distinction:#
+
+11+.<| *Feature/Information associations*
+
+| *S-130 Role*
+3+| *Association Type Name*
+3+| *Associated to*
+3+| *Type*
+| *Multiplicity*
+
+| (no associations)
+3+| (none)
+3+| -
+3+| -
+| -
+|===

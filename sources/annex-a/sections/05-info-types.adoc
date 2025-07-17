@@ -1,0 +1,161 @@
+[[cls-A-5]]
+== Information types
+
+=== Additional Spatial Information
+
+[cols="a,a,a,a,a,a,a,a,a,a"]
+|===
+10+.<| [underline]#IHO Definition:# Additional textual information relating to one or more geographic locations.
+
+10+.<| [underline]#*S-130 Information Type:*# *AdditionalSpatialInformation*
+
+10+.<| [underline]#*Super Type:*#
+
+10+.<| [underline]#*Primitives:*# *None*
+
+2+| span:blue[_Real World_]
+4+| span:blue[_Paper Chart Symbol_]
+4+| span:blue[_ECDIS Symbol_]
+
+3+| *S-130 Attribute*
+| *S-57 Acronym*
+3+| *Allowable Encoding Value*
+| *Type*
+2+| *Multiplicity*
+
+3+| locationReference
+|
+3+|
+| C
+2+| 1, *
+
+3+| locationByText
+|
+3+|
+| (S) TE
+2+| 0, 1
+
+3+| textLatitude
+|
+3+|
+| (S) TE
+2+| 0, 1
+
+3+| textLongitude
+|
+3+|
+| (S) TE
+2+| 0, 1
+
+3+| referenceSystem
+|
+3+|
+| (S) TE
+2+| 1, 1
+
+10+.<| [underline]#INT 1 Reference:#
+
+None
+
+[underline]#Remarks:#
+
+* Positions in _textLatitude_ and _textLongitude_ must be encoded in the exact format that they are described in the source document they were extracted from. If a position is described in a source document in degrees, minutes and seconds then this description must be retained in the textual string as degrees, minutes and seconds.
+* If the sub-attribute _locationByText_ is omitted or not populated, the sub-attributes _textLatitude_ and _textLongitude_ must both be populated.
+* If _textLatitude_ or _textLongitude_ is omitted or not populated, the sub-attribute _locationByText_ must be populated.
+* The sub-attributes _textLongitude_ and _textLatitude_ must either be both populated or both omitted.
+* The S-100 Feature Catalogue model does not permit bindings from information types to feature types. Between feature types and information types, only the feature-to-information binding is permitted. Instances of *AdditionalSpatialInformation* therefore do not link to any instance of a geographic feature type and the *AdditionalInformation* association is not included in the Information Associations section of this table.
+
+[underline]#Distinction:#
+
+10+.<| [underline]#*Information associations*#
+
+| *S-130 Role*
+4+| *Association Type Name*
+2+| *Associated to*
+2+| *Type*
+| *Multiplicity*
+
+| theSpatialInformationSource
+4+| AdditionalSpatial- +
+InformationSource
+2+| AdditionalSpatial- +
+Information
+2+| Association
+| 0, *
+|===
+
+=== Source Information
+
+[cols="a,a,a,a,a,a,a,a,a,a,a"]
+|===
+11+.<| [underline]#IHO Definition:# Information about source material(s) from which data can be derived.
+
+11+.<| [underline]#*S-130 Information Type:*# *SourceInformation*
+
+11+.<| [underline]#*Primitives:*# *None*
+
+2+| span:blue[_Real World_]
+4+| span:blue[_Paper Chart Symbol_]
+5+| span:blue[_ECDIS Symbol_]
+
+3+| *S-130 Attribute*
+2+| *S-57 Acronym*
+3+| *Allowable Encoding Value*
+| *Type*
+2+| *Multiplicity*
+
+3+| sourceIndication
+2+| (SORIND)
+3+|
+| C
+2+| 1, *
+
+3+| reportedDate
+2+| (SORDAT)
+3+|
+| TD
+2+| 0, 1
+
+3+| source
+2+|
+3+|
+| (S) TE
+2+| 1, 1
+
+3+| sourceType
+2+|
+3+| 1: law or regulation
+
+2: official publication
+
+10: remotely sensed images
+
+12: products issued by HO services
+| (S) EN
+2+| 1, 1
+
+11+.<| [underline]#INT 1 Reference:#
+None
+
+[underline]#Remarks:#
+
+* The S-100 Feature Catalogue model does not permit bindings from information types to feature types. Between feature types and information types, only the feature-to-information binding is permitted. Instances of *SourceInformation* therefore do not link to any instance of a geographic feature type and the *FeatureTypeSource* association is not included in the Information Associations section of this table.
+
+[underline]#Distinction:#
+
+11+.<| [underline]#*Information associations*#
+
+| *S-130 Role*
+3+| *Association Type Name*
+3+| *Associated to*
+3+| *Type*
+| *Multiplicity*
+
+| theAdditionalSpatialInformation
+3+| AdditionalSpatial- +
+InformationSource
+3+| AdditionalSpatial- +
+Information
+3+| Association
+| 0, *
+|===

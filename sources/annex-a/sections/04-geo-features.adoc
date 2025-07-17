@@ -1,0 +1,376 @@
+[[cls-A-4]]
+== Geo Features
+
+This section describes abstract as well as non-abstract types. The
+abstract type *FeatureType* cannot be used directly, but defines
+attributes inherited by its sub-types. The encoding remarks in the
+description of *FeatureType* apply to its sub-types but may be overridden
+by remarks in the sub-type.
+
+=== Feature Type
+
+[cols="a,a,a,a,a,a,a,a,a,a,a"]
+|===
+11+.<| [underline]#IHO Definition:# Generalized feature type which carries all the common attributes.
+
+11+.<| [underline]#*S-130 Geo Feature:*# *FeatureType (Abstract)*
+
+11+.<| [underline]#*Primitives:*# *none*
+
+2+| span:blue[_Real World_]
+4+| span:blue[_Paper Chart Symbol_]
+5+| span:blue[_ECDIS Symbol_]
+
+3+| *S-130 Attribute*
+2+| *S-57 Acronym*
+3+| *Allowable Encoding Value*
+| *Type*
+2+| *Multiplicity*
+
+3+| maximumDisplayScale
+2+| (SCAMAX)
+3+| maximum display scale < +
+minimum display scale
+| IN
+2+| 0, 1
+
+3+| minimumDisplayScale
+2+| (SCAMIN)
+3+| minimum display scale > +
+maximum display scale
+| IN
+2+| 0, 1
+
+11+.<| [underline]#INT 1 Reference:#
+
+None
+
+[underline]#Remarks:#
+
+* The attribute *minimumDisplayScale* is used to indicate the smallest intended viewing scale for the feature.
+* The attribute *maximumDisplayScale* is used to indicate the value considered by the Data Producer to be the maximum (largest) scale at which the feature is to be displayed before it can be considered to be "grossly overscaled".
+* As an abstract type, there are no direct instances of *FeatureType* encoded in datasets. Instead the attributes and associations of *FeatureType* are inherited by its non-abstract sub-types *GlobalSeaArea*, *ConstructionLine*, and *ConstructionPoint*, and encoded in instances of those types.
+
+[underline]#Distinction:#
+
+11+.<| [underline]#*Feature/Information associations*#
+
+| *S-130 Role*
+3+| *Association Type Name*
+3+| *Associated to*
+3+| *Type*
+| *Multiplicity*
+
+| theInformation
+3+| AdditionalInformation
+3+| AdditionalSpatialInformation
+3+| Association
+| 0, *
+
+| theFeatureDataSource
+3+| FeatureTypeSource
+3+| SourceInformation
+3+| Association
+| 0, *
+|===
+
+=== Global Sea Area
+
+[cols="a,a,a,a,a,a,a,a,a,a,a"]
+|===
+11+.<| [underline]#IHO Definition:# An area describing the extents of global seas and oceans.
+
+11+.<| [underline]#*S-130 Geo Feature:*# *GlobalSeaArea*
+
+11+.<| [underline]#*Super Type:*# *FeatureType*
+
+11+.<| [underline]#*Primitives:*# *noGeometry, Surface*
+
+2+| span:blue[_Real World_]
+4+| span:blue[_Paper Chart Symbol_]
+5+| span:blue[_ECDIS Symbol_]
+
+3+| *S-130 Attribute*
+2+| *S-57 Acronym*
+3+| *Allowable Encoding Value*
+| *Type*
+2+| *Multiplicity*
+
+3+| featureIdentifier
+2+|
+3+|
+| URN
+2+| 1, 1
+
+3+| version
+2+|
+3+| version stem:[>= 1]
+| IN
+2+| 0, 1
+
+3+| fixedDateRange
+2+|
+3+|
+| C
+2+| 0, 1
+
+3+| dateStart
+2+| (DATSTA)
+3+|
+| TD
+2+| 0, 1
+
+3+| dateEnd
+2+| (DATEND)
+3+|
+| TD
+2+| 0, 1
+
+11+.<| [underline]#*Inherited attributes*#
+
+3+| maximumDisplayScale
+2+| (SCAMAX)
+3+| maximum display scale < +
+minimum display scale
+| IN
+2+| 0, 1
+
+3+| minimumDisplayScale
+2+| (SCAMIN)
+3+| minimum display scale > +
+maximum display scale
+| IN
+2+| 0, 1
+
+11+.<| [underline]#INT 1 Reference:#
+
+None
+
+[underline]#Remarks:#
+
+* If _fixedDateRange_ is present at least one of its sub-attributes _dateStart_ or _dateEnd_ must be present.
+* If both _dateStart_ and _dateEnd_ are present, _dateStart_ must precede _dateEnd_.
+* If a sea area consists of unconnected spatial components (for example, if an intervening peninsular land area requires splitting a *GlobalSeaArea* into disjoint polygonal regions), the polygonal regions must be encoded as separate *GlobalSeaArea* feature instances with the same values for __featureIdentifier__, and with each having a single connected polygon as its geometry. An additional *GlobalSeaArea* instance without geometry must be created with a *GlobalSeaAreaAggregation* association to each of the component features, and with the same value for _featureIdentifier_.
+* Features associated with a *GlobalSeaAreaAggregation* must have the same values of _maximumDisplayScale_ and _minimumDisplayScale_.
+* *GlobalSeaAreaAggregation* could also be used when encoding the relation between the overall area and sub-divisions (for example, a sea and a bay within the sea).
+
+[underline]#Distinction:#
+
+11+.<| [underline]#*Feature/Information associations*#
+
+| *S-130 Role*
+3+| *Association Type Name*
+3+| *Associated to*
+3+| *Type*
+| *Multiplicity*
+
+| theComponent
+3+| GlobalSeaArea- +
+Aggregation
+3+| GlobalSeaArea
+3+| Association
+| 0,*
+
+| theCollection
+3+| GlobalSeaArea- +
+Aggregation
+3+| GlobalSeaArea
+3+| Aggregation
+| 0,*
+
+| zoneConstructionLimit
+3+| ZoneLimit
+3+| ConstructionLine
+3+| Association
+| 0,*
+
+| zoneContributingLocation
+3+| ZoneLocation
+3+| ContributingPoint
+3+| Association
+| 0,*
+
+.<| theInformation
+3+.<| AdditionalInformation (inherited)
+3+| AdditionalSpatialInformation
+3+.<| Association
+.<| 0,*
+
+.<| theFeatureDataSource
+3+.<| FeatureTypeSource (inherited)
+3+| SourceInformation
+3+.<| Association
+.<| 0,*
+|===
+
+=== Construction Line
+
+[cols="a,a,a,a,a,a,a,a,a,a,a"]
+|===
+11+.<| [underline]#IHO Definition:# An arc used for constructing Limit or Boundary features typically linking to a Contributing Point.
+
+11+.<| [underline]#*S-130 Geo Feature:*# *ConstructionLine*
+
+11+.<| [underline]#*Super Type:*# *FeatureType*
+
+11+.<| [underline]#*Primitives:*# *Curve*
+
+2+| span:blue[_Real World_]
+4+| span:blue[_Paper Chart Symbol_]
+5+| span:blue[_ECDIS Symbol_]
+
+3+| *S-130 Attribute*
+2+| *S-57 Acronym*
+2+| *Allowable Encoding Value*
+2+| *Type*
+2+| *Multiplicity*
+
+3+| lineType
+2+|
+2+| 1: rhumb line
+
+2: great circle
+
+3: undetermined/unknown
+2+| (S) EN
+2+| 1, 1
+
+11+.<| *Inherited attributes*
+
+3+| maximumDisplayScale
+2+| (SCAMAX)
+2+| maximum display scale < +
+minimum display scale
+2+| IN
+2+| 0, 1
+
+3+| minimumDisplayScale
+2+| (SCAMIN)
+2+| minimum display scale > +
+maximum display scale
+2+| IN
+2+| 0, 1
+
+11+.<| [underline]#INT 1 Reference:#
+
+None
+
+[underline]#Remarks:#
+
+* *ConstructionLine* features must be associated with at least one *GlobalSeaArea*.
+
+[underline]#Distinction:#
+
+11+.<| [underline]#*Feature/Information associations*#
+
+| *S-130 Role*
+3+| *Association Type Name*
+4+| *Associated to*
+2+| *Type*
+| *Multiplicity*
+
+| lineDerivedZone
+3+| ZoneLimit
+4+| GlobalSeaArea
+2+| Aggregation
+| 1,*
+
+| lineContributingLocation
+3+| LimitLocation
+4+| ContributingPoint
+2+| Association
+| 0,*
+
+.<| theInformation
+3+.<| AdditionalInformation (inherited)
+4+| AdditionalSpatialInformation
+2+.<| Association
+.<| 0,*
+
+.<| theFeatureDataSource
+3+.<| FeatureTypeSource (inherited)
+4+| SourceInformation
+2+.<| Association
+.<| 0,*
+|===
+
+=== Contributing Point
+
+[cols="a,a,a,a,a,a,a,a,a,a,a"]
+|===
+11+.<| [underline]#IHO Definition:# A point, typically on a Baseline, used for the computation of a maritime Limit or Boundary feature.
+
+11+.<| [underline]#*S-130 Geo Feature:*# *ContributingPoint*
+
+11+.<| [underline]#*Super Type:*# *FeatureType*
+
+11+.<| [underline]#*Primitives:*# *Point*
+
+2+| span:blue[_Real World_]
+4+| span:blue[_Paper Chart Symbol_]
+5+| span:blue[_ECDIS Symbol_]
+
+3+| *S-130 Attribute*
+2+| *S-57 Acronym*
+3+| *Allowable Encoding Value*
+2+| *Type*
+| *Multiplicity*
+
+11+.<| *Inherited attributes*
+
+3+| maximumDisplayScale
+2+| (SCAMAX)
+3+| maximum display scale < +
+minimum display scale
+2+| IN
+| 0, 1
+
+3+| minimumDisplayScale
+2+| (SCAMIN)
+3+| minimum display scale > +
+maximum display scale
+2+| IN
+| 0, 1
+
+11+.<| [underline]#INT 1 Reference:#
+
+None
+
+[underline]#Remarks:#
+
+* *ContributingPoint* features must be associated with at least one *GlobalSeaArea* and one *ConstructionLine* feature.
+
+[underline]#Distinction:#
+
+11+.<| *Feature/Information associations*
+
+| *S-130 Role*
+3+| *Association Type Name*
+3+| *Associated to*
+2+| *Type*
+2+| *Multiplicity*
+
+| pointDerivedZone
+3+| ZoneLocation
+3+| GlobalSeaArea
+2+| Aggregation
+2+| 1,*
+
+| contributedLimit
+3+| LimitLocation
+3+| ConstructionLine
+2+| Aggregation
+2+| 1,*
+
+.<| theInformation
+3+.<| AdditionalInformation (inherited)
+3+| AdditionalSpatialInformation
+2+.<| Association
+2+.<| 0,*
+
+.<| theFeatureDataSource
+3+.<| FeatureTypeSource (inherited)
+3+| SourceInformation
+2+.<| Association
+2+.<| 0,*
+|===

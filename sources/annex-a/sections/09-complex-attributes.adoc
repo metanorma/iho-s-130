@@ -1,0 +1,54 @@
+== Complex Attributes
+
+=== fixedDateRange
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# An active period of a single fixed event or occurrence, as the date range between discrete start and end dates.
+
+[underline]#Sub-attributes:#
+
+* *dateStart* (see <<cls-A-8.3>>)
+* *dateEnd* (see <<cls-A-8.4>>)
+
+[underline]#Remarks:#
+
+* No remarks.
+|===
+
+=== locationReference
+
+[cols=a]
+|===
+| [underline]#IHO Definition:# Comprehensive description of a geographic location through textual elements and/or geospatial coordinates.
+
+[underline]#Sub-attributes:#
+
+* *locationByText* (see <<cls-A-8.5>>)
+* *textLatitude* (see <<cls-A-8.6>>)
+* *textLongitude* (see <<cls-A-8.7>>)
+* *referenceSystem* (see <<cls-A-8.8>>)
+
+[underline]#Remarks:#
+
+* Definition proposed to the IHO GI Registry.
+|===
+
+=== sourceIndication
+
+[cols=a]
+|===
+| [underline]#IHO Definition:#
+
+Information about the source document, publication, or reference from which object data or textual material included or referenced in a dataset are derived.
+
+[underline]#Sub-attributes:#
+
+* *reportedDate* (see <<cls-A-8.1>>)
+* *source* (see <<cls-A-8.2>>)
+* *sourceType* (see <<cls-A-8.13>>)
+
+[underline]#Remarks:#
+
+* No remarks.
+|===

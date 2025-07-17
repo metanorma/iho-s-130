@@ -1,0 +1,36 @@
+== Data product identification
+
+This section describes how to identify data sets that conform to the
+specification. A dataset that conforms to this Product Specification may
+be identified by its discovery metadata as defined in <<cls-12>> of this
+specification. The information identifying the data product may include
+the following items from <<S100,clause="11-6">> (adapted from
+<<ISO19115>>).
+
+*Title*:: Polygonal Demarcations of Global Sea Areas
+
+*Abstract*:: Polygonal Demarcations of Global Sea Areas (PDGSA) datasets
+support the provision of digital coordinates for limits of oceans and seas
+to meet the requirements of contemporary geographic information systems.
+It is a vector product specification that is primarily intended for
+encoding the extent of global sea areas using a system of unique numerical
+identifiers only.
+
+*Acronym*:: PDGSA
+
+*Content*:: Datasets conforming to this specification will contain all
+relevant limits of oceans and seas.
+
+*GeographicDescription*:: *EX_GeographicBoundingBox*: bounding coordinates
+of the maximum geospatial extent in decimal degrees
+
+*SpatialResolution*:: MD_Resolution>equivalentScale.denominator (integer)
+or MD_Resolution>levelOfDetail (CharacterString). E.g.: "All scales"
+
+*Purpose*:: Provision of digital coordinates for limits of oceans and seas
+to meet the requirements of contemporary geographic information systems,
+and to allow the producer to exchange global limit of oceans and seas
+information with interested stakeholders.
+
+*Language*:: ENAdditional values, if any, use CharacterString values from
+<<ISO639-2>>

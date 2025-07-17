@@ -1,0 +1,115 @@
+== Data Content and Structure
+
+=== Introduction
+
+The S-130 product is based on the S-100 General Feature Model (GFM), and
+is a feature-based vector product. The S-130 feature classes are derived
+from the abstract class *FeatureType* in the S-130 application schema,
+which realizes the GFM meta-class *S100_GF_FeatureType*.
+
+S-130 features are encoded as vector entities which conform to S-100
+geometry configuration level 3a/b (<<S100,section="7-4.3.5">>) as encoded
+using <<S100,part="10b">>.
+
+This section contains the Application Schema expressed in UML and an
+associated Feature Catalogue. The Feature Catalogue is included in
+Annex C, and provides a full description of each feature type
+including its attributes, attribute values and relationships in the data
+product.
+
+=== Application Schema
+
+The UML model shown below is the overall S-130 application schema, and
+includes overviews of the feature classes, information classes, spatial
+types, and the relationships between them.
+
+This contains a general overview of the classes and relationships in the
+S-130 application schema. Detailed information about how to use the
+feature types and information types to encode PDGSA (Polygonal
+Demarcations of Global Sea Areas) information is provided in the S-130
+Data Classification and Encoding Guide (DCEG).
+
+The following conventions are used in the UML diagrams depicting the
+application schema:
+
+* Standard UML conventions for classes, associations, inheritance, roles,
+and multiplicities apply. These conventions are described in
+<<S100,part=1>>.
+* Feature classes are depicted with a green background.
+* Information type classes are depicted with a blue background.
+* Complex attributes are depicted with a pink background.
+* Enumeration lists are depicted with a light green background. The
+numeric code corresponding to each listed value is shown to its right
+following an '=' sign.
+* No significance attaches to the colour of associations. (Complex
+diagrams may use different colours to distinguish associations that cross
+one another.)
+* Where the association role or name is not explicitly shown, the default
+rules for roles and names apply.
+
+The figure below contains all the geographic features in the S-130
+application schema with their attributes.
+
+[%landscape]
+<<<
+
+[[fig-4-1]]
+.Overview of S-130 Application Schema
+image::img01.png[height=100%]
+
+[%portrait]
+<<<
+
+Polygonal Demarcations of Global Sea Areas products describe the extents
+of global seas and oceans and may include a feature identifier, version,
+display scale range, date range, source indication, and additional spatial
+information. *FeatureType*, serving as the superclass for other feature
+types, encompasses common attributes to identify the maximum and minimum
+display scale(s), essential for visualizing the global sea area layer.
+
+*GlobalSeaArea* serves as the key feature type for encoding the surface of
+global sea and ocean areas. It encompasses the following attributes: a
+feature identifier for unique identification, version for change
+management, and date range indicating the effective feature dates. The
+complex attribute *fixedDateRange* consists of individual simple attribute
+types each defined as a separate class. Additionally, *GlobalSeaArea* can
+be enriched with *ConstructionLine* and *ContributingPoint*.
+*ConstructionLine*, as a feature type, encodes the curves demarcating
+global sea and ocean areas, and includes the line type as simple attribute
+type. *ContributingPoint* is instrumental in encoding the points of global
+sea areas.
+
+*AdditionalSpatialInformation*, an information type, provides the
+possibility to include additional spatial information. It incorporates
+attributes for locations described through text, latitude/longitude
+expressed in text format, and reference systems. Similarly,
+*SourceInformation*, another information type, delves into source
+information, featuring attributes for the reported date, source and source
+type.
+
+Geographic features adhere to spatial types defined in the geometry
+package for spatial attributes. The hierarchical organization of
+geographic features revolves around both feature association and
+information association.
+
+==== Multipolygonal areas
+
+For global sea areas whose spatial extents are multi-polygons. each
+polygon must be encoded as a distinct *GlobalSeaArea* feature. In
+addition, an aggregate *GlobalSeaArea* feature must be created with no
+geometry. All the polygonal features deriving from the same
+multi-polygonal feature must be associated with the same aggregate
+*GlobalSeaArea* feature using a *GlobalSeaAreaAggregation* association.
+The value for _featureIdentifier_ must be the same for all the features in
+each collection; and should be computed from the centroid of the original
+multi-polygon from which they are derived.
+
+[example]
+In <<fig-4-2>>, the global sea area A must be split into separate
+*GlobalSeaArea* features having different polygonal spatial primitives but
+the same _featureIdentifier_, and all such features must be associated to
+a *GlobalSeaArea* with no geometry and the same _featureIdentifier_.
+
+[[fig-4-2]]
+.Example of split feature
+image::img02.png[]

@@ -1,0 +1,10 @@
+[bibliography]
+== Bibliography
+
+* [[[ISO19107,ISO 19107]]]
+
+* [[[ISO19136,ISO 19136:2007]]]
+
+* [[[RFC2141,IETF RFC 2141]]]
+
+* [[[S100,IHO S-100]]]

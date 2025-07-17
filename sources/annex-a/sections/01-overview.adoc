@@ -1,0 +1,181 @@
+== Overview
+
+=== Preface
+
+The "Data Classification and Encoding Guide" has been developed to provide
+consistent, standardized instructions for encoding S-100 compliant
+Polygonal Demarcations of Global Sea Areas (S-130) data.
+
+This document describes how to encode information that the modeller
+considers relevant to a Polygonal Demarcations of Global Sea Areas data
+product. The content of a dataset is at the discretion of the producing
+authority provided that the conventions described within this document are
+followed.
+
+The entire S-100 Universal Hydrographic Data Model, including the S-130
+Product Specification, is available at the following website,
+https://iho.int.
+
+=== S-130 Annex A - Data Classification and Encoding Guide - Metadata
+
+NOTE: This information uniquely identifies this Annex to the Product
+Specification and provides information about its creation and maintenance.
+
+*Title*:: The International Hydrographic Organization Polygonal
+Demarcations of Global Sea Areas Product Specification, Annex A -- Data
+Classification and Encoding Guide
+
+*Version*:: 2.0.0
+
+*Date*:: 20 March 2025
+
+*Language*:: English
+
+*Classification*:: Unclassified
+
+*Contact*:: International Hydrographic Organization +
+4b, quai Antione 1er +
+B.P. 445 +
+MC 98011 MONACO CEDEX +
+Telephone: +377 93 10 81 00 +
+Fax: +377 93 10 81 40
+
+*URL*:: https://iho.int/[iho.int]
+
+*Identifier*:: S-130 Annex A
+
+*Maintenance*:: Changes to S-130 Annex A - Data Classification and
+Encoding Guide are coordinated by the HSSC S-130 Project Team and must be
+made available via the IHO web site.
+
+=== Terms, definitions and abbreviations
+
+[heading=terms and definitions]
+==== Terms and definitions
+
+===== aggregation
+
+special form of {{association,options="noref"}} that specifies a whole-part relationship
+between the aggregate (whole) and a component (see {{composition,options="noref"}})
+
+===== association
+
+semantic relationship between two or more classifiers that specifies
+connections among their instances
+
+NOTE: A binary association is an association among exactly two classifiers
+(including the possibility of an association from a classifier to itself)
+
+===== attribute
+
+named property of an entity
+
+NOTE: Describes the geometrical, topological, thematic, or other
+characteristic of an entity
+
+===== composition
+
+a strong {{aggregation,options="noref"}}; if a container object is deleted than all of its
+containee objects are deleted as well (that is, containee objects cannot
+exist without the container object)
+
+===== composite curve
+
+sequence of curves such that each curve (except the first) starts at the
+end point of the previous curve in the sequence
+
+[.source]
+<<ISO19107>>
+
+===== curve
+
+1-dimensional {{geometric primitive,options="noref"}}, representing the continuous image
+of a line
+
+NOTE: The boundary of a {{curve,options="noref"}} is the set of {{point,points,options="noref"}}
+at either end of the {{curve,options="noref"}}. If the {{curve,options="noref"}} is a cycle, the two ends
+are identical, and the {{curve,options="noref"}} (if topologically closed) is considered
+to not have a boundary. The first {{point,options="noref"}} is called the start point,
+and the last is the end point. Connectivity of the curve is guaranteed
+by the "continuous image of a line"
+
+===== enumeration
+
+A fixed list of valid identifiers of named literal values. Attributes of
+an enumerated type may only take values from this list
+
+[.source]
+<<ISO19136>>
+
+===== feature
+
+Abstraction of real world phenomena
+
+NOTE: A feature may occur as a type or an instance. The terms "feature
+type" or "feature instance" should be used when only one is meant
+
+[example]
+The feature instance named "Eiffel Tower" may be classified with other
+phenomena into a feature type "tower"
+
+===== geometric primitive
+
+geometric object representing a single, connected, homogeneous element of
+geometry
+
+NOTE: Geometric primitives are non-decomposed objects that present
+information about geometric configuration. They include {{point,points,options="noref"}},
+{{curve,curves,options="noref"}}, {{surface,surfaces,options="noref"}}
+
+===== maximum display scale
+
+the largest value of the ratio of the linear dimensions of features of a
+dataset presented in the display and the actual dimensions of the features
+represented (largest scale) of the scale range of the dataset
+
+===== minimum display scale
+
+the smallest value of the ratio of the linear dimensions of features of a
+dataset presented in the display and the actual dimensions of the features
+represented (smallest scale) of the scale range of the dataset
+
+===== point
+
+0-dimensional geometric primitive, representing a position
+
+NOTE: The boundary of a point is the empty set
+
+===== populated
+
+an attribute is {{populated,options="noref"}} when it is present and has a non-nilled value
+
+===== surface
+
+connected 2-dimensional geometric primitive, representing the continuous
+image of a region of a plane
+
+NOTE: The boundary of a surface is the set of oriented, closed
+{{curve,curves,options="noref"}} that delineate the limits of the surface
+
+==== Abbreviations
+
+ECDIS:: Electronic Chart Display and Information System
+ENC:: Electronic Navigational Chart
+GML:: Geography Markup Language
+HO:: Hydrographic Office
+IHO:: International Hydrographic Organization
+ISO:: International Organization for Standardization
+
+=== Use of language
+
+Within this document:
+
+* "Must" indicates a mandatory requirement;
+* "Should" indicates an optional requirement, that is the recommended
+process to be followed, but is not mandatory;
+* "May" means "allowed to" or "could possibly", and is not mandatory.
+
+=== Maintenance
+
+Changes to the Data Classification and Encoding Guide must occur in
+accordance with the S-130 Product Specification.

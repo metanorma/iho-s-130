@@ -1,0 +1,439 @@
+== Overview
+
+=== Introduction
+
+This document describes a product specification for the Polygonal
+Demarcations of Global Sea Areas (PDGSA). It is a vector product
+specification that is primarily intended for encoding the extent of global
+sea areas using a system of unique numerical identifiers only. This
+product specification complies with the IHO S-100 Universal Hydrographic
+Data Model.
+
+[[cls-1.2]]
+=== References
+
+[bibliography,normative=true]
+==== Normative
+
+The following normative documents contain provisions that, through
+reference in this text, constitute provisions of this document.
+
+* [[[S100,IHO S-100]]]
+
+* [[[ISO8601,ISO 8601:2004]]]
+
+* [[[ISO3166-1,ISO 3166-1:2020]]]
+
+* [[[ISO19103,ISO/TS 19103:2005]]]
+
+* [[[ISO19106,ISO 19106:2004]]]
+
+* [[[ISO19107,ISO 19107:2003]]]
+
+* [[[ISO19108,ISO 19108:2002]]]
+
+* [[[ISO19109,ISO 19109:2005]]]
+
+* [[[ISO19110,ISO 19110:2005]]]
+
+* [[[ISO19111,ISO 19111:2003]]]
+
+* [[[ISO19115-1,ISO 19115-1:2014]]]
+
+* [[[ISO19115-3,ISO/TS 19115-3:2016]]]
+
+* [[[ISO19131,ISO 19131:2007]]]
+
+* [[[ISO19136,ISO 19136:2007]]]
+
+* [[[ISO19136-2,ISO 19136-2:2015]]]
+
+* [[[ISO639-2,ISO 639-2:1998]]]
+
+* [[[ISO10646,ISO/IEC 10646:2017]]]
+
+* [[[RFC2141,IETF RFC 2141]]]
+
+[bibliography,normative=false]
+==== Informative
+
+The following informative documents provide additional information,
+including background information or definitions, but are not required to
+develop applications for data conforming to this specification.
+
+* [[[ISO19115,ISO 19115:2003]]]
+
+* [[[ISO19757-3,ISO/IEC 19757-3]]]
+
+* [[[S101,IHO S-101]]]
+
+* [[[ISO19157,hidden(ISO 19157)]]]
+
+* [[[ISO10646-1,hidden(ISO/IEC 10646-1)]]]
+
+* [[[S62,hidden(IHO S-62)]]]
+
+* [[[S97,hidden(IHO S-97)]]]
+
+* [[[ISO19101,ISO 19101]]]
+
+=== Terms, Definitions and Abbreviations
+
+[heading=terms and definitions]
+==== Terms and Definitions
+
+The <<S100>> framework is based on the ISO 19100 series of geographic
+standards. The terms and definitions provided here are used to standardize
+the nomenclature found within that framework, whenever possible. They are
+taken from the references cited in <<cls-1.2>>. Modifications have been
+made when necessary.
+
+===== application
+
+manipulation and processing of data in support of user requirements
+
+[.source]
+<<ISO19101>>
+
+===== application schema
+
+{{conceptual schema,options="noref"}} for data required by one or more
+{{application,applications,options="noref"}}
+
+[.source]
+<<ISO19101>>
+
+===== composite curve
+
+sequence of curves such that each curve (except the first) starts at the
+end point of the previous curve in the sequence
+
+[.source]
+<<ISO19107>>
+
+===== conceptual model
+
+model that defines concepts of a {{universe of discourse,options="noref"}}
+
+[.source]
+<<ISO19101>>
+
+===== conceptual schema
+
+formal description of a {{conceptual model,options="noref"}}
+
+[.source]
+<<ISO19101>>
+
+===== curve
+
+1-dimensional geometric primitive, representing the continuous image of a
+line
+
+NOTE: The boundary of a curve is the set of points at either end of the
+curve. If the curve is a cycle, the two ends are identical, and the curve
+(if topologically closed) is considered to not have a boundary. The first
+point is called the start point, and the last is the end point.
+Connectivity of the curve is guaranteed by the "continuous image of a
+line".
+
+===== data product
+
+{{dataset,options="noref"}} or {{dataset series,options="noref"}} that conforms to a
+{{data product specification,options="noref"}}
+
+[.source]
+<<ISO19131>>
+
+===== data product specification
+
+detailed description of a {{dataset,options="noref"}} or {{dataset series,options="noref"}} together with
+additional information that will enable it to be created, supplied to and
+used by another party
+
+[.source]
+<<ISO19131>>
+
+NOTE: A data product specification provides a description of the universe
+of discourse and a specification for mapping the universe of discourse to
+a dataset. It may be used for production, sales, end-use or other purpose.
+
+===== dataset
+
+identifiable collection of data
+
+[.source]
+<<ISO19115>>
+
+NOTE: A dataset may be a smaller grouping of data which, though limited by
+some constraint such as spatial extent or feature type, is located
+physically within a larger dataset. Theoretically, a dataset may be as
+small as a single feature or feature attribute contained within a larger
+dataset. A hardcopy map or chart may be considered a dataset.
+
+===== dataset series
+
+collection of {{dataset,datasets,options="noref"}} sharing the same product specification
+
+[.source]
+<<ISO19115>>
+
+===== domain
+
+well-defined set
+
+[.source]
+<<ISO19103>>
+
+NOTE: Well-defined means that the definition is both necessary and
+sufficient, as everything that satisfies the definition is in the set and
+everything that does not satisfy the definition is necessarily outside the
+set.
+
+===== feature
+
+abstraction of real-world phenomena
+
+[.source]
+<<ISO19101>>
+
+NOTE: A feature may occur as a type or an instance. Feature type or
+feature instance shall be used when only one is meant.
+
+===== feature association
+
+relationship that links instances of one {{feature,options="noref"}} type with instances
+of the same or a different {{feature,options="noref"}} type
+
+[.source]
+<<ISO19110>>
+
+NOTE: A feature association may occur as a type or an instance. Feature
+association type or feature association instance is used when only one is
+meant.
+
+NOTE: Feature associations include aggregation of features.
+
+===== feature attribute
+
+characteristic of a {{feature,options="noref"}}
+
+[.source]
+<<ISO19101>>
+
+NOTE: A feature attribute may occur as a type or an instance. Feature
+attribute type or feature attribute instance is used when only one is
+meant.
+
+NOTE: A feature attribute type has a name, a data type and a domain
+associated to it. A feature attribute for a feature instance has an
+attribute value taken from the domain.
+
+===== geographic data
+
+data with implicit or explicit reference to a location relative to the
+Earth
+
+[.source]
+<<ISO19109>>
+
+NOTE: Geographic information is also used as a term for information
+concerning phenomena implicitly or explicitly associated with a location
+relative to the Earth.
+
+===== metadata
+
+data about data
+
+[.source]
+<<ISO19115>>
+
+===== model
+
+abstraction of some aspects of reality
+
+[.source]
+<<ISO19109>>
+
+===== point
+
+0-dimensional geometric primitive, representing a position
+
+NOTE: The boundary of a point is the empty set.
+
+===== quality
+
+totality of characteristics of a product that bear on its ability to
+satisfy stated and implied needs
+
+[.source]
+<<ISO19101>>
+
+===== surface
+
+connected 2-dimensional geometric primitive, representing the continuous
+image of a region of a plane
+
+NOTE: The boundary of a surface is the set of oriented, closed curves that
+delineate the limits of the surface.
+
+===== universe of discourse
+
+view of the real or hypothetical world that includes everything of interest
+
+[.source]
+<<ISO19101>>
+
+==== Abbreviations
+
+This product specification adopts the following convention for symbols and
+abbreviated terms:
+
+ASCII:: American Standard Code for Information Interchange
+GML:: Geography Markup Language
+IHO:: International Hydrographic Organization
+IOC:: Intergovernmental Oceanographic Commission
+ISO:: International Organization for Standardization
+UML:: Unified Modelling Language
+URI:: Uniform Resource Identifier
+URL:: Uniform Resource Locator
+WGS:: World Geodetic System
+XML:: eXtensible Markup Language
+XSLT:: eXtensible Stylesheet Language Transformations
+
+=== Use of Language
+
+Within this document, including appendices and annexes:
+
+* "Must" indicates a mandatory requirement.
+* "Should" indicates an optional requirement, that is the recommended
+process to be followed, but is not mandatory.
+* "May" means "allowed to" or "could possibly", and is not mandatory.
+
+=== UML Notations
+
+In this document, conceptual schemas are presented in the Unified
+Modelling Language (UML). Several model elements used in this schema are
+defined in ISO standards or in <<S100>> documents. In order to ensure that
+class names in the model are unique ISO TC/211 has adopted a convention of
+establishing a prefix to the names of classes that define the TC/211
+defined UML package in which the UML class is defined. The IHO standards
+and this product specification make use of classes derived directly from
+the ISO standards. This convention is also followed in this document. In
+the IHO standards class names are identified by the name of the standard,
+such as "S-100" as the prefix optionally followed by the bi-alpha prefix
+derived from ISO standard. In order to avoid having multiple classes
+instantiating the same root classes, the ISO classes and S-100 classes
+have been used where possible; however, a new instantiated class is
+required if there is a need to alter a class or relationship to prevent a
+reverse coupling between the model elements introduced in this document
+and those defined in <<S100>> or the ISO model.
+
+=== Informal Description of Data Product
+
+This clause contains general information about the data product.
+
+*Title*:: Polygonal Demarcations of Global Sea Areas
+
+*Abstract*:: Polygonal Demarcations of Global Sea Areas (PDGSA) datasets
+support the provision of digital coordinates for limits of oceans and seas
+to meet the requirements of contemporary geographic information systems.
+It is a vector product specification that is primarily intended for
+encoding the extent of global sea areas using a system of unique numerical
+identifiers only.
+
+*Content*:: Datasets conforming to this specification will contain all
+relevant limits of oceans and seas.
+
+*Spatial Extent*:: Global coverage of sea areas.
+
+*Specific Purpose*:: Provision of digital coordinates for limits of oceans
+and seas to meet the requirements of contemporary geographic information
+systems.
+
+=== Data product specification metadata
+
+This information uniquely identifies this Product Specification and
+provides information about its creation and maintenance. For further
+information on dataset metadata see the metadata clause.
+
+*Title*:: Polygonal Demarcations of Global Sea Areas
+
+*S-100 Version*:: 5.2.0
+
+*S-130 Version*:: 2.0.0
+
+*Date*:: 2025-03-20
+
+*Language*:: English
+
+*Classification*:: Unclassified
+
+*Contact*:: International Hydrographic Organization, +
+4 quai Antoine 1er, +
+B.P. 445 +
+MC 98011 MONACO CEDEX +
+Telephone: +377 93 10 81 00 +
+Telefax: + 377 93 10 81 40
+
+*URL*:: https://iho.int
+
+*Identifier*:: S-130
+
+*Maintenance*:: Amendments to this specification will be produced on a
+needs basis. For reporting issues with this specification which need
+correction, use the contact information.
+
+=== Product Specification Maintenance
+
+==== Introduction
+
+Changes to S-130 will be released by the IHO as a new edition, a revision,
+or as a document that includes clarification. These are described below.
+
+==== New Edition
+
+New Editions introduce significant changes. New Editions enable new
+concepts, such as the ability to support new functions or applications, or
+the introduction of new constructs or data types. New Editions are likely
+to have a significant impact on either existing users or future users of
+S-130.
+
+==== Revisions
+
+Revisions are defined as substantive semantic changes. Typically,
+revisions will introduce changes to correct factual errors or introduce
+necessary changes that have become evident as a result of practical
+experience or changing circumstances. A revision must not also be
+classified as a clarification. Revisions could have an impact on either
+existing users or future users of this specification. All cumulative
+clarifications will be included with the release of approved corrections
+revisions.
+
+Changes in a revision are minor and ensure backward compatibility with the
+previous versions within the same Edition. Newer revisions, for example,
+introduce new features and attributes. Within the same Edition, a dataset
+of one version could always be processed with a later version of the
+feature catalogues. In most cases a new feature catalogue will result in a
+revision of this specification.
+
+==== Clarification
+
+Clarifications are non-substantive changes. Typically, clarifications
+remove ambiguity; correct grammatical and spelling errors; amend or update
+cross references; insert improved graphics, spelling, punctuation and
+grammar. Clarifications must not cause any substantive semantic changes.
+
+Changes in a clarification are minor and ensure backward compatibility
+with the previous versions within the same Edition. Within the same
+Edition, a dataset of one clarification version could always be processed
+with a later version of the feature catalogue.
+
+==== Version Numbers
+
+The associated version control numbering to identify changes (n) to this
+specification must be as follows:
+
+* New Editions denoted as **n**.0.0
+* Revisions denoted as n.**n**.0
+* Clarifications denoted as n.n.**n**

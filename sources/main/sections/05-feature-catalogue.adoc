@@ -1,0 +1,128 @@
+== Feature Catalogue
+
+=== Introduction
+
+The Feature Catalogue describes the feature types, information types,
+attributes, attribute values, associations and roles which may be used in
+the product. The S-130 Feature Catalogue is available in an XML document
+which conforms to the <<S100>> XML Feature Catalogue Schema and can be
+downloaded from the IHO Geospatial Information Registry
+(https://registry.iho.int/main.do). Simple attributes used in this
+specification are listed as below.
+
+*Name*:: Polygonal Demarcations of Global Sea Areas
+
+*Scope*:: Ocean, Coastal, Ports, Harbors and Inland waters
+
+*Version Number*:: 2.0.0
+
+*Version Date*:: 2025-03-20
+
+*Producer*:: IHO +
+4 quai Antoine 1er, +
+B.P. 445 +
+MC 98011 MONACO CEDEX +
+Telephone: +377 93 10 81 00 +
+Telefax: + 377 93 10 81 40 +
+URL https://iho.int
+
+*Language*:: English
+
+=== Feature Types
+
+Feature types contain descriptive attributes that characterize real-world
+entities. The word 'feature' may be used in one of two senses -- feature
+type and feature instance. A feature type is a class and is defined in a
+Feature Catalogue. A feature instance is a single occurrence of the
+feature type and represented as an object in a dataset. A feature instance
+is located by a relationship to one or more spatial instances. A feature
+instance may exist without referencing a spatial instance.
+
+==== Geographic
+
+Geographic (Geo) feature types carry the descriptive characteristics of a
+real-world entity.
+
+==== Meta
+
+Meta features contain information about other features within a dataset.
+Information defined by meta features override the default metadata values
+defined by the dataset descriptive records. Meta attribution on individual
+features overrides attribution on meta features.
+
+==== Feature Relationship
+
+A feature relationship links instances of one feature type with instances
+of the same or a different feature type.
+
+==== Information Types
+
+Information types are identifiable pieces of information in a dataset that
+can be shared between other features. They have attributes but have no
+relationship to any geometry; information types may reference other
+information types.
+
+==== Attributes
+
+S-130 defines attributes as either simple or complex.
+
+===== Simple Attributes
+
+S-130 uses ten types of simple attributes; they are listed in the
+following table:
+
+[[tab-5-1]]
+.Simple feature attributes
+[cols="a,a",optios=header]
+|===
+| Type | Definition
+
+| Enumeration | A fixed list of valid identifiers of named literal values
+| Boolean | A value representing binary logic. The value can be either True or False. The default state for Boolean type attributes (i.e. where the attribute is not populated for the feature) is False.
+| Real | A signed Real (floating point) number consisting of a mantissa and an exponent
+| Integer | A signed integer number. The representation of an integer is encapsulation and usage dependent.
+| Text | An arbitrary-length sequence of characters including accents and special characters from a repertoire of one of the adopted character sets
+| Date a| A date provides values for year, month and day according to the Gregorian Calendar. In S-130, the character encoding of a date is a string which must conform to the XML Schema standard type instead of the <<ISO8601>> basic representation (which is not a standard type in XML).
+
+[example]
+1998-09-18 (YYYY-MM-DD)
+| Time | A time is given by an hour, minute and second. In S-130, the character encoding of a time is a string which must conform to the XML Schema standard type instead of the ISO 8601 basic representation (which is not a standard type in XML).
+
+[example]
+18:30:59Z; 18:30:59+01:00; 18:30:59
+| Codelist | A type of flexible enumeration. A code list type is a list of literals which may be extended only in conformance with specified rules.
+| Truncated date | Allows a partial date to be encoded as an extension to the <<ISO8601>> compliant date attribute type values for year, month and day according to the Gregorian Calendar. The <<S100>> truncated date type also allows complete dates to be encoded.
+
+[example]
+<S100:date>2018-05-01</S100:date>
+
+[example]
+<S100:gYearMonth>2022-04</S100:gYearMonth>
+| URN | A persistent, location-independent, resource identifier that follows the syntax and semantics for URNs specified in <<RFC2141>>.
+|===
+
+=== Complex Attributes
+
+Complex attributes are aggregations of other attributes that are either
+simple or complex. The aggregation is defined by means of attribute
+bindings.
+
+[[fig-5-1]]
+.locationReference -- a complex attribute
+image::img03.png[]
+
+=== Units of Measure
+
+The following units of measure are used in Polygonal Demarcations of
+Global Sea Areas datasets;
+
+* Orientation is given in decimal degrees
+* Uncertainty is given in metres
+* Distances are given in metres or nautical miles
+
+=== Geometric Representation
+
+Geometric representation is the digital description of the spatial
+component of an object as described in <<S100>> and <<ISO19107>>. This
+product specification uses three types of geometries (GM_Point,
+GM_OrientableCurve, GM_OrientableSurface) and NoGeometry.
