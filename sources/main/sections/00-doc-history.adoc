@@ -87,7 +87,7 @@ Changes to this Product Specification are coordinated by the IHO. New editions w
   - person:
       name:
         abbreviation: RM
-        completename:
+        completename: RM
   amend:
     - description: Apply changes decided at S-130 PT11 and after
 - date:
