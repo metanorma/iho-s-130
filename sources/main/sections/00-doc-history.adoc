@@ -84,8 +84,10 @@ Changes to this Product Specification are coordinated by the IHO. New editions w
     value: 2025-03-16
   edition: 2.0.0
   contributor:
-  - organization:
-      name: RM
+  - person:
+      name:
+        abbreviation: RM
+        completename:
   amend:
     - description: Apply changes decided at S-130 PT11 and after
 - date:
