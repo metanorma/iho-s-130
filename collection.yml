@@ -1,0 +1,42 @@
+directives:
+  - documents-inline
+  - recompile-xml: true
+  #- coverpage: index.html
+output-folder: collection
+bibdata:
+  title:
+    type: title-main
+    language: en
+    content: IHO S-130
+  type: collection
+  docid:
+    type: iho
+    id: S-130
+  edition: 1
+  date:
+    - type: created
+      value: "2025"
+  copyright:
+    owner:
+      name: International Hydrographic Organization
+      abbreviation: IHO
+    from: "2025"
+format:
+  - xml
+  - presentation
+  - pdf
+  - html
+  - doc
+manifest:
+  docref:
+  - file: sources/main/document.adoc
+  - file: sources/annex-a/document.adoc
+#prefatory-content:
+#|
+  #== Clause
+  #Welcome to our collection
+#
+#final-content:
+#|
+  #== Exordium
+  #Hic explicit
