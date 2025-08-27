@@ -2,7 +2,7 @@ directives:
   - documents-inline
   - recompile-xml: true
   #- coverpage: index.html
-output-folder: collection
+output_folder: collection
 bibdata:
   title:
     type: title-main
@@ -29,8 +29,11 @@ format:
   - doc
 manifest:
   docref:
-  - file: sources/main/document.adoc
-  - file: sources/annex-a/document.adoc
+    - file: sources/main/document.adoc
+      identifier: IHO S-130
+    - file: sources/annex-a/document.adoc
+      identifier: IHO S-130 Annex A
+
 #prefatory-content:
 #|
   #== Clause
